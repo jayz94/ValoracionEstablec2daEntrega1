@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dui"
+            android:id="@+id/textViewDui"
+            android:textSize="20sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etDui"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Consultar"
+            android:id="@+id/btConsultar"
+            android:onClick="consultarCliente"
+            style="@style/btStyle"
+            android:layout_marginLeft="35sp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/limpiar"
+            android:id="@+id/btLimpiarConsultar"
+            android:onClick="limpiar"
+            style="@style/btStyle"
+            android:layout_marginLeft="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginTop="20sp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nombre"
+            android:id="@+id/textViewNombreC" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etNombre"
+
+            android:enabled="false"
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:longClickable="false"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/apellido"
+            android:id="@+id/textViewApellidoC" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etApellido"
+
+            android:enabled="false"
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:longClickable="false"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sexo"
+            android:id="@+id/textViewSexoC" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etSexo"
+
+            android:enabled="false"
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:longClickable="false"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edad"
+            android:id="@+id/textViewEdadC"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etEdad"
+
+            android:enabled="false"
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:longClickable="false"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/correo"
+            android:id="@+id/textViewCorreoC"
+            />
+
+        <EditText
+                       android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etCorreo"
+
+            android:enabled="false"
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:longClickable="false"/>
+    </LinearLayout>
+
+</LinearLayout>

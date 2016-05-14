@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:stretchColumns="1"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="@string/aTiestablec"
+        android:gravity="center" />
+
+    <TableRow>
+
+        <TextView
+            android:text="@string/identificador"
+            android:layout_marginTop="40px"
+            android:layout_marginStart="12dp" />
+
+        <EditText
+            android:id="@+id/editId"
+            android:inputType="text"
+            android:maxLength="6"
+            android:layout_marginTop="40px"
+            android:layout_marginEnd="55dp"
+            android:nextFocusDown="@+id/editNombreEstablec" />
+    </TableRow>
+
+
+    <TableRow>
+
+        <TextView
+            android:text="@string/tipo"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp" />
+
+        <EditText
+            android:id="@+id/editTipo"
+            android:inputType="text"
+            android:maxLength="30"
+            android:layout_marginTop="20dp"
+            android:nextFocusDown="@+id/editDireccion"
+            android:layout_marginEnd="55dp" />
+    </TableRow>
+
+    <TableLayout>
+
+        <TableRow android:layout_marginTop="60dp">
+
+            <Button
+                android:id="@+id/buttonActualizar"
+                android:onClick="actualizarTiEstablec"
+                android:text="@string/actualizar"
+                android:layout_width="120dp"
+                android:layout_marginEnd="55dp"
+                android:layout_marginStart="12dp" />
+
+            <Button
+                android:onClick="limpiarTexto"
+                android:text="@string/limpiar"
+                android:layout_width="100dp" />
+        </TableRow>
+    </TableLayout>
+</TableLayout>

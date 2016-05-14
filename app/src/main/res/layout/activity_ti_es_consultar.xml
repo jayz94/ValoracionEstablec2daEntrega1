@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="proyecto1.pdm.fia.ues.sv.valoracionestablecimientos.EstablecConsultarActivity"
+    android:weightSum="1">
+
+    <TextView
+        android:text="@string/cTiestablec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
+        android:id="@+id/textView" />
+
+    <TextView
+        android:id="@+id/viewIdTiEstablec"
+        android:text="@string/identificador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignStart="@+id/buttonConsultar"
+        android:layout_marginTop="59dp" />
+
+    <EditText
+        android:id="@+id/editIdTiEstablec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLength="6"
+        android:layout_alignBottom="@+id/viewIdTiEstablec"
+        android:layout_alignStart="@+id/buttonLimpiar"
+        android:layout_alignEnd="@+id/buttonLimpiar"
+        android:nextFocusDown="@+id/buttonLimpiar" />
+
+    <Button
+        android:id="@+id/buttonLimpiar"
+        android:onClick="limpiarTexto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/limpiar"
+        android:layout_alignTop="@+id/buttonConsultar"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="76dp" />
+
+    <Button
+        android:id="@+id/buttonConsultar"
+        android:onClick="consultarTiEstablec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="63dp"
+        android:text="@string/consultar"
+        android:layout_below="@+id/viewIdTiEstablec"
+        android:layout_toStartOf="@+id/buttonLimpiar"
+        android:layout_marginEnd="32dp" />
+
+    <TextView
+        android:text="@string/tipo"
+        android:id="@+id/viewTiEstablec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/buttonConsultar"
+        android:layout_alignStart="@+id/buttonConsultar" />
+
+    <EditText
+        android:id="@+id/editTiEstablec"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:maxLength="30"
+        android:layout_alignBottom="@+id/viewTiEstablec"
+        android:layout_alignEnd="@+id/buttonLimpiar"
+        android:nextFocusDown="@+id/editDireccionEstablec"
+        android:editable="false" />
+
+
+</RelativeLayout>

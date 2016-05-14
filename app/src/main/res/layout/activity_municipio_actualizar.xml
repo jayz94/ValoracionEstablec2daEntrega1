@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="proyecto1.pdm.fia.ues.sv.valoracionestablecimientos.MunicipioActualizarActivity">
+
+</RelativeLayout> -->
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:stretchColumns="1" >
+    <TableRow>
+        <TextView android:text="@string/IdMunicipio" />
+        <EditText
+            android:id="@+id/editIdMunicipio"
+            android:inputType="number"
+            android:maxLength="7" /><!-- ya sabemos porque 7 -->
+    </TableRow>
+    <TableRow>
+        <TextView android:text="@string/IdDepartamento" />
+        <EditText
+            android:id="@+id/editIdDepartamento"
+            android:inputType="number"
+            android:maxLength="6" /><!-- ya sabemos que era por codmateria-->
+    </TableRow>
+    <TableRow>
+        <TextView android:text="@string/NombreMunicipio" />
+        <EditText
+            android:id="@+id/editNombreMunicipio"
+            android:inputType="text"
+            android:maxLength="30" />
+    </TableRow>
+    <!--<TableRow>
+        <TextView android:text="@string/notafinal" />
+        <EditText
+            android:id="@+id/editNota"
+            android:inputType="numberDecimal" />
+    </TableRow> -->
+    <TableRow>
+        <Button
+            android:onClick="actualizarMunicipio"
+            android:text="@string/actualizar" />
+    </TableRow>
+    <TableRow>
+        <Button
+            android:onClick="limpiarTexto"
+            android:text="@string/limpiar" />
+    </TableRow>
+</TableLayout>

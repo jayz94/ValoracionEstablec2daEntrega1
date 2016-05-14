@@ -1,0 +1,81 @@
+<resources>
+    <string name="app_name">ValoracionEstablecimientos</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="title_activity_Departamento_menu">DepartamentoMenuActivity</string>
+    <string name="title_activity_Municipio_menu">MunicipioMenuActivity</string>
+
+    <string name="title_activity_Departamento_insertar">DepartamentoInsertarActivity</string>
+    <string name="title_activity_Departamento_eliminar">DepartamentoEliminarActivity</string>
+    <string name="title_activity_Departamento_actualizar">DepartamentoActualizarActivity</string>
+    <string name="title_activity_Departamento_consultar">DepartamentoConsultarActivity</string>
+
+    <string name="title_activity_Municipio_insertar">MunicipioInsertarActivity</string>
+    <string name="title_activity_Municipio_eliminar">MunicipioEliminarActivity</string>
+    <string name="title_activity_Municipio_actualizar">MunicipioActualizarActivity</string>
+    <string name="title_activity_Municipio_consultar">MunicipioConsultarActivity</string>
+
+    <string name="Departamento_menu">Función a Ejecutar Departamento</string>
+    <string name="Municipio_menu">Función a Ejecutar Municipio</string>
+
+    <string name="insertar_registro">Insertar Registro</string>
+    <string name="eliminar_registro">Eliminar Registro</string>
+    <string name="consultar_registro">Consultar Registro</string>
+    <string name="actualizar_registro">Actualizar Registro</string>
+
+    <string name="IdDepartamento">IdDepartamento</string>
+    <string name="NombreDepartamento">Nombre Departamento</string>
+    <string name="Zona">Zona</string>
+
+    <string name="insertar">Insertar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="actualizar">Actualizar</string>
+    <string name="consultar">Consultar</string>
+
+    <string name="IdMunicipio">IdMunicipio</string>
+    <string name="IdDeptoMun">IdDepto</string>
+    <string name="NombreMunicipio">Nombre Municipio</string>
+
+    <string name="limpiar">Limpiar</string>
+
+    <string name="opciones">Opciones:</string>
+
+
+    <string name="cliente_titulo">Cliente</string>
+
+    <string name="dui">Dui</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="sexo">Sexo</string>
+    <string name="edad">Edad</string>
+    <string name="correo">Correo</string>
+
+    <string name="aceptar">Aceptar</string>
+    <!-- <string name="limpiar">Limpiar</string>  ya estaba este parametro-->
+    <string name="Consultar">Consultar</string>
+
+    <string name="title_encargado">Encargado</string>
+    <string name="cargo">Cargo</string>
+    <string name="establecimiento">Establecimiento</string>
+    <string name="nit">Nit</string>
+
+
+    <string name="identificador">Identificador</string>
+    <string name="iestablecimiento">Insertar Establecimiento</string>
+    <string name="cestablecimiento">Consultar Establecimiento</string>
+    <string name="aestablecimiento">Actualizar Establecimiento</string>
+    <string name="eestablecimiento">Eliminar Establecimiento</string>
+    <string name="nombreEstablec">Nombre</string>
+    <string name="direccionEstablec">Direccion</string>
+    <string name="telefono">Telefono</string>
+    <string name="encargadoNit">Nit Encargado</string>
+    <string name="idMun">ID Municipio</string>
+    <string name="idtipoEstablec">ID Tipo Establecimiento</string>
+
+    <string name="iTiestablec">Insertar Tipo Establecimiento</string>
+    <string name="cTiestablec">Consultar Tipo Establecimiento</string>
+    <string name="aTiestablec">Actualizar Tipo Establecimiento</string>
+    <string name="eTiestablec">Eliminar Tipo Establecimiento</string>
+    <string name="tipo">Tipo</string>
+</resources>

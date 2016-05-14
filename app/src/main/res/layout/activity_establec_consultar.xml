@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="proyecto1.pdm.fia.ues.sv.valoracionestablecimientos.EstablecConsultarActivity"
+    android:weightSum="1">
+
+    <TextView
+        android:text="@string/cestablecimiento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
+        android:id="@+id/textView" />
+
+    <TextView
+        android:id="@+id/viewIdEstablec"
+        android:text="@string/identificador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignStart="@+id/buttonConsultar"
+        android:layout_marginTop="59dp" />
+
+    <EditText
+        android:id="@+id/editIdEstablec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/viewIdEstablec"
+        android:maxLength="6"
+        android:layout_alignStart="@+id/buttonLimpiar"
+        android:layout_alignEnd="@+id/buttonLimpiar"
+        android:nextFocusDown="@+id/buttonLimpiar" />
+
+    <Button
+        android:id="@+id/buttonLimpiar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/limpiar"
+        android:layout_alignTop="@+id/buttonConsultar"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="76dp"
+        android:nextFocusDown="@+id/editNombreEstablec"
+        android:onClick="limpiarTexto" />
+
+    <Button
+        android:id="@+id/buttonConsultar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="63dp"
+        android:text="@string/consultar"
+        android:layout_below="@+id/viewIdEstablec"
+        android:layout_toStartOf="@+id/buttonLimpiar"
+        android:layout_marginEnd="32dp"
+        android:onClick="consultar" />
+
+    <TextView
+        android:text="@string/nombreEstablec"
+        android:id="@+id/viewNombreEstablec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/buttonConsultar"
+        android:layout_alignStart="@+id/buttonConsultar" />
+
+    <EditText
+        android:id="@+id/editNombreEstablec"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/viewNombreEstablec"
+        android:layout_alignEnd="@+id/buttonLimpiar"
+        android:nextFocusDown="@+id/editDireccionEstablec"
+        android:editable="false" />
+
+    <TextView
+        android:text="@string/direccionEstablec"
+        android:id="@+id/viewDireccionEstablec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/viewNombreEstablec"
+        android:layout_alignStart="@+id/viewNombreEstablec" />
+
+    <EditText
+        android:id="@+id/editDireccionEstablec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/viewDireccionEstablec"
+        android:layout_alignEnd="@+id/editNombreEstablec"
+        android:layout_alignStart="@+id/editNombreEstablec"
+        android:editable="false" />
+
+    <TextView
+        android:text="@string/telefono"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewTelefono"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/viewDireccionEstablec"
+        android:layout_alignStart="@+id/viewDireccionEstablec" />
+
+    <EditText
+        android:id="@+id/editTelefono"
+        android:inputType="number"
+        android:maxLength="8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/viewTelefono"
+        android:layout_alignEnd="@+id/editDireccionEstablec"
+        android:layout_alignStart="@+id/editDireccionEstablec"
+        android:editable="false" />
+
+    <TextView
+        android:text="@string/encargadoNit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewEncargado"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/viewTelefono"
+        android:layout_alignStart="@+id/viewDireccionEstablec" />
+
+    <EditText
+        android:id="@+id/editEncargadoNit"
+        android:inputType="text"
+        android:maxLength="100"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/viewEncargado"
+        android:layout_alignEnd="@+id/editTelefono"
+        android:layout_alignStart="@+id/editTelefono"
+        android:editable="false" />
+
+    <TextView
+        android:text="@string/idMun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewIdMun"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/viewEncargado"
+        android:layout_alignStart="@+id/viewEncargado" />
+
+    <EditText
+        android:id="@+id/editIdMunicipioE"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/viewIdMun"
+        android:layout_alignEnd="@+id/editEncargadoNit"
+        android:layout_alignStart="@+id/editEncargadoNit"
+        android:editable="false" />
+
+    <TextView
+        android:text="@string/tipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewTipoEstablec"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/viewEncargado"
+        android:layout_alignStart="@+id/viewEncargado" />
+
+    <EditText
+        android:id="@+id/editIdTipoEstablec"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/viewTipoEstablec"
+        android:layout_alignEnd="@+id/editIdMunicipioE"
+        android:layout_alignStart="@+id/editIdMunicipioE"
+        android:editable="false" />
+
+
+</RelativeLayout>

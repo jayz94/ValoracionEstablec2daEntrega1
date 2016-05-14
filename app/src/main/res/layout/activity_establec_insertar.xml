@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:stretchColumns="1"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="@string/iestablecimiento"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/viewUltimoEstablec"
+        android:gravity="center" />
+
+    <TableRow>
+
+        <TextView
+            android:text="@string/identificador"
+            android:layout_marginTop="15px"
+            android:layout_marginStart="12dp" />
+
+        <EditText
+            android:id="@+id/editId"
+            android:inputType="text"
+            android:maxLength="6"
+            android:layout_marginTop="15px"
+            android:layout_marginEnd="55dp" />
+    </TableRow>
+
+
+    <TableRow>
+
+        <TextView
+            android:text="@string/nombreEstablec"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="12dp" />
+
+        <EditText
+            android:id="@+id/editNombreEstablec"
+            android:inputType="text"
+            android:maxLength="20"
+            android:layout_marginTop="10dp"
+            android:nextFocusDown="@+id/editDireccion"
+            android:layout_marginEnd="55dp" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:text="@string/direccionEstablec"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="12dp" />
+
+        <EditText
+            android:id="@+id/editDireccion"
+            android:inputType="text"
+            android:maxLength="100"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="55dp" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:text="@string/telefono"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="12dp" />
+
+        <EditText
+            android:id="@+id/editTelefono"
+            android:inputType="number"
+            android:maxLength="8"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="55dp" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:text="@string/encargadoNit"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="12dp" />
+
+        <EditText
+            android:id="@+id/editEncargadoNit"
+            android:inputType="text"
+            android:maxLength="17"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="55dp" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:text="@string/idMun"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="12dp" />
+
+        <EditText
+            android:id="@+id/editIdMunicipioE"
+            android:inputType="number"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="55dp" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:text="@string/idtipoEstablec"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="12dp" />
+
+        <EditText
+            android:id="@+id/editIdTipoEstablec"
+            android:inputType="text"
+            android:maxLength="6"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="55dp" />
+    </TableRow>
+
+
+    <TableLayout>
+
+        <TableRow android:layout_marginTop="10dp">
+
+            <Button
+                android:onClick="insertarEstablec"
+                android:text="@string/insertar"
+                android:layout_width="100dp"
+                android:layout_marginEnd="55dp"
+                android:layout_marginStart="12dp" />
+
+            <Button
+                android:onClick="limpiarTexto"
+                android:text="@string/limpiar"
+                android:layout_width="100dp" />
+        </TableRow>
+    </TableLayout>
+    <!--wrap enolver      fill llenar     top parte superior   strectch tramo-->
+</TableLayout>
