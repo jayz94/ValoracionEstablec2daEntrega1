@@ -3,9 +3,15 @@ package proyecto1.pdm.fia.ues.sv.valoracionestablecimientos;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EstablecInsertarActivity extends Activity {
     ControlDBValoracionEstablecimientos helper;
@@ -15,7 +21,7 @@ public class EstablecInsertarActivity extends Activity {
     EditText telefono;
     EditText encargadoNit;
     EditText idMun;
-    EditText idTipoEstablec;
+    Spinner idTipoEstablec;
     TextView ultimoEstablec;
 
     @Override
@@ -29,9 +35,14 @@ public class EstablecInsertarActivity extends Activity {
         telefono = (EditText) findViewById(R.id.editTelefono);
         encargadoNit = (EditText) findViewById(R.id.editEncargadoNit);
         idMun = (EditText) findViewById(R.id.editIdMunicipioE);
-        idTipoEstablec = (EditText) findViewById(R.id.editIdTipoEstablec);
-        ultimoEstablec = (TextView) findViewById(R.id.viewUltimoEstablec);
+        idTipoEstablec = (Spinner) findViewById(R.id.spinnerTipoEstablec);
         helper.abrir();
+       /*Spinner*/
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,helper.listaIdTiEstablec());
+        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        idTipoEstablec.setAdapter(adaptador);
+        /*Spinner*/
+        ultimoEstablec = (TextView) findViewById(R.id.viewUltimoEstablec);
         ultimoEstablec.setText("Ultimo ID " + helper.ultimoRegistroE());
     }
 
@@ -40,8 +51,9 @@ public class EstablecInsertarActivity extends Activity {
         establec.setIdEstablec(idEstablec.getText().toString());
         establec.setNombreEstablec(nombreEstablec.getText().toString());
         establec.setDireccion(direccion.getText().toString());
-        establec.setTelefono(telefono.getText().toString());
-        String idEs=helper.verificarIntegridad("",idTipoEstablec.getText().toString(),1);
+        establec.setTelefono(telefono.getText().toString());/*String selec=spinner1.getSelectedItem().toString();*/
+        //erificarIntegridad(String encargadoNit, String idTipoEstablec, int idMun)
+        String idEs=helper.verificarIntegridad(encargadoNit.getText().toString(),idTipoEstablec.getSelectedItem().toString(),Integer.parseInt(idMun.getText().toString()));
         if(idEs==null) {
             establec.setEncargadoNit(encargadoNit.getText().toString());
             if (idMun.getText().toString().equals(""))
@@ -49,7 +61,7 @@ public class EstablecInsertarActivity extends Activity {
             else {
                 int idMuni = Integer.parseInt(idMun.getText().toString());
                 establec.setIdMunicipio(idMuni);
-                establec.setIdTipoEstablec(idTipoEstablec.getText().toString());
+               establec.setIdTipoEstablec(idTipoEstablec.getSelectedItem().toString());
                 helper.cerrar();
                 helper.abrir();
                 String regInsertados = helper.insertar(establec);
@@ -57,8 +69,9 @@ public class EstablecInsertarActivity extends Activity {
                 helper.cerrar();
                 Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
             }
-        }else Toast.makeText(this,idEs, Toast.LENGTH_SHORT).show();
+       }else Toast.makeText(this,idEs, Toast.LENGTH_SHORT).show();
     }
+
 
     public void limpiarTexto(View v) {
         idEstablec.setText("");
@@ -67,6 +80,6 @@ public class EstablecInsertarActivity extends Activity {
         telefono.setText("");
         encargadoNit.setText("");
         idMun.setText("");
-        idTipoEstablec.setText("");
+        //idTipoEstablec.setText("");
     }
 }

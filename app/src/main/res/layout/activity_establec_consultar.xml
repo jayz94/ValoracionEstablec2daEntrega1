@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
         android:layout_alignStart="@+id/buttonConsultar"
-        android:layout_marginTop="59dp" />
+        android:layout_marginTop="29dp" />
 
     <EditText
         android:id="@+id/editIdEstablec"
@@ -47,9 +47,10 @@
 
     <Button
         android:id="@+id/buttonConsultar"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="63dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="16dp"
         android:text="@string/consultar"
         android:layout_below="@+id/viewIdEstablec"
         android:layout_toStartOf="@+id/buttonLimpiar"
@@ -61,7 +62,7 @@
         android:id="@+id/viewNombreEstablec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/buttonConsultar"
         android:layout_alignStart="@+id/buttonConsultar" />
 
@@ -79,7 +80,7 @@
         android:id="@+id/viewDireccionEstablec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:layout_below="@+id/viewNombreEstablec"
         android:layout_alignStart="@+id/viewNombreEstablec" />
 
@@ -97,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/viewTelefono"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:layout_below="@+id/viewDireccionEstablec"
         android:layout_alignStart="@+id/viewDireccionEstablec" />
 
@@ -117,7 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/viewEncargado"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:layout_below="@+id/viewTelefono"
         android:layout_alignStart="@+id/viewDireccionEstablec" />
 
@@ -137,7 +138,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/viewIdMun"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:layout_below="@+id/viewEncargado"
         android:layout_alignStart="@+id/viewEncargado" />
 
@@ -156,7 +157,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/viewTipoEstablec"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="59dp"
         android:layout_below="@+id/viewEncargado"
         android:layout_alignStart="@+id/viewEncargado" />
 

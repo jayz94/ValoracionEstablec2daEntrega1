@@ -18,9 +18,17 @@ public class MenuPrincipalActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menu));
-
         BDhelper=new ControlDBValoracionEstablecimientos(this);
+        Intent intentRecibe= getIntent();
+        Bundle b= intentRecibe.getExtras();
+        String idUsuario =(String) b.get("idUsuario");
+        BDhelper.abrir();
+        menu=BDhelper.obtenerMenu(idUsuario);
+        activities=BDhelper.obtenerActivites(idUsuario);
+        BDhelper.cerrar();
+        setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,menu));
+
+
     }
 
     @Override
@@ -36,12 +44,9 @@ public class MenuPrincipalActivity extends ListActivity {
                 e.printStackTrace();
             }
         }else{
-            //CODIGO PARA LLENAR BASE DE DATOS
-            BDhelper.abrir();
-            String tost=BDhelper.llenarBDProyecto1();
-            BDhelper.cerrar();
-            Toast.makeText(this, tost, Toast.LENGTH_SHORT).show();
+
         }
 
     }
+
 }

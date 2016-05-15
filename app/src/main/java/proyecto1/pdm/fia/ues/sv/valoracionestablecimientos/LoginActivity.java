@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity {
     private Button btnLogin;
@@ -36,18 +37,25 @@ public class LoginActivity extends Activity {
             try {
                 helper.abrir();
                logeo= helper.logear(editUsuario.getText().toString(),editPassword.getText().toString());
+
+                //CODIGO PARA LLENAR BASE DE DATOS
+                String tost=helper.llenarBDProyecto1();
+                Toast.makeText(this, tost, Toast.LENGTH_SHORT).show();
                 helper.cerrar();
                 if(logeo=="")
                     notaError.setText("No esta regitrado");
                 else{
                     Class<?> clase = Class.forName("proyecto1.pdm.fia.ues.sv.valoracionestablecimientos.MenuPrincipalActivity");
                     Intent intent = new Intent(this, clase);
+                    intent.putExtra("idUsuario",logeo);
                     this.startActivity(intent);
+
                 }
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
     }
+
 
 }
