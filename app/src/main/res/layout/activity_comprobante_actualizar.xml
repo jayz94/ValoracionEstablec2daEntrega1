@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:stretchColumns="1" >
+    <TableRow>
+        <TextView android:text="@string/id_comprobante" />
+        <EditText
+            android:id="@+id/editIdComprobanteA"
+            android:inputType="number"
+            android:maxLength="7" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="@string/num_comprobante" />
+        <EditText
+            android:id="@+id/editNumComprobanteA"
+            android:inputType="number"
+            android:maxLength="30" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="@string/fecha_comprobante" />
+        <EditText
+            android:id="@+id/editFechaComprobanteA"
+            android:inputType="text"
+            android:maxLength="10" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="@string/monto" />
+        <EditText
+            android:id="@+id/editMontoA"
+            android:inputType="numberDecimal"
+            android:maxLength="4" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="@string/vendedor" />
+        <EditText
+            android:id="@+id/editVendedorA"
+            android:inputType="text"
+            android:maxLength="30" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="@string/id_tipo_comprobante" />
+        <EditText
+            android:id="@+id/editIdTipoComprobanteA"
+            android:inputType="number"
+            android:maxLength="3" />
+    </TableRow>
+    <TableRow>
+        <Button
+            android:onClick="actualizarComprobante"
+            android:text="@string/actualizar_registro" />
+    </TableRow>
+    <TableRow>
+        <Button
+            android:onClick="limpiarTexto"
+            android:text="limpiar" />
+    </TableRow>
+</TableLayout>

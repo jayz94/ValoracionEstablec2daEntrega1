@@ -18,6 +18,9 @@ public class ControlDBValoracionEstablecimientos {
     /*variables juan carlos---------------------------------------------------------------------------------------*/
     private static final String[] camposTiEstablec = new String[]{"idTipoEstablecimiento ", "tipoEstablecimiento"};
     private static final String[] camposEstablec = new String[]{"idEstablecimiento", "nombreEstablecimiento", "direccion", "telefono", "encargadoNit", "idMunicipio", "idTipoEstablecimiento "};
+    /*variables Elias --------------------------------------------------------------------------------------------*/
+    private static final String[] camposComprobante= new String []{"numComprobante", "idComprobante","fechaComprobante","monto","vendedor","idTipoComprobante"};
+    private static final String[] camposTipoComprobante = new String[]{"idTipoComprobante","TipoComprobante"};
 
     private final Context context;
     private DatabaseHelper DBHelper;
@@ -47,6 +50,9 @@ public class ControlDBValoracionEstablecimientos {
                 /*consultas katya -----------------------------------------------------------------------------------------------*/
                 db.execSQL("CREATE TABLE cliente (dui VARCHAR(10)NOT NULL PRIMARY KEY, nombre VARCHAR(50),apellido VARCHAR(50),sexo VARCHAR(1), edad INTEGER, correo VARCHAR(50));");
                 db.execSQL("CREATE TABLE encargado(nit VARCHAR(17) NOT NULL PRIMARY KEY,nombre VARCHAR(50), apellido VARCHAR(50),sexo VARCHAR(1),edad INTEGER, cargo VARCHAR(50));");
+                /*consultas Elias -----------------------------------------------------------------------------------------------*/
+                db.execSQL("CREATE TABLE comprobante(numComprobante INTEGER ,idComprobante INTEGER NOT NULL PRIMARY KEY,fechaComprobante VARCHAR(10),monto INTEGER,vendedor VARCHAR(30),idTipoComprobante INTEGER);");
+                db.execSQL("CREATE TABLE tipoComprobante(idTipoComprobante VARCHAR(6) NOT NULL PRIMARY KEY,tipoComprobante VARCHAR(30));");
                /* db.execSQL("CREATE TABLE establecimiento(numeroEstablecimiento VARCHAR(10) NOT NULL PRIMARY KEY,direccion VARCHAR(50),encargadoNit VARCHAR(17));");*/
                 db.execSQL("CREATE TRIGGER fk_establecimiento_encargado BEFORE DELETE ON encargado"
                         +" "+"FOR EACH ROW BEGIN SELECT CASE"
@@ -538,6 +544,130 @@ public class ControlDBValoracionEstablecimientos {
             return null;
         }
     }
+
+    /*metodos Elias -----------------------------------------------------------------*/
+
+    public String insertar(Comprobante comprobante){
+        String regInsertados="Registro Insertado Nº= ";
+        long contador=0;
+
+        ContentValues comp= new ContentValues();
+        comp.put("numComprobante",comprobante.getNumComprobante());
+        comp.put("idComprobante",comprobante.getIdComprobante());
+        comp.put("fechaComprobante",comprobante.getFechaComprobante());
+        comp.put("monto",comprobante.getMonto());
+        comp.put("vendedor",comprobante.getVendedor());
+        comp.put("idTipoComprobante",comprobante.getIdTipoComprobante());
+        contador=db.insert("comprobante",null,comp);
+
+        if (contador==-1||contador==0){
+            regInsertados="Error al insertar registro, Registro Duplicado. Verificar inserción";
+        }
+        else {
+            regInsertados=regInsertados+contador;
+        }
+        return regInsertados;
+    }
+    public String insertar(TipoComprobante tipoComprobante) {
+        String regInsertados="Registro Insertado Nº= ";
+        long contador=0;
+
+        ContentValues tipoComp= new ContentValues();
+        tipoComp.put("idTipoComprobante", tipoComprobante.getIdTipoComprobante());
+        tipoComp.put("tipoComprobante", tipoComprobante.getTipoComprobante());
+        contador=db.insert("tipocomprobante",null,tipoComp);
+
+        if (contador==-1||contador==0){
+            regInsertados="Error al insertar registro, Registro Duplicado. Verificar inserción";
+        }
+        else {
+            regInsertados=regInsertados+contador;
+        }
+        return regInsertados;
+    }
+
+    public String actualizar(Comprobante comprobante){
+        String[] id = {""+comprobante.getIdComprobante()};
+        ContentValues cv = new ContentValues();
+        cv.put("numComprobante", comprobante.getNumComprobante());
+        cv.put("fechaComprobante", comprobante.getFechaComprobante());
+        cv.put("monto", comprobante.getMonto());
+        cv.put("vendedor", comprobante.getVendedor());
+        cv.put("idTipoComprobante",comprobante.getIdTipoComprobante());
+        db.update("comprobante", cv, "idComprobante = ?", id);
+        return "Registro Actualizado Correctamente";
+    }
+
+    public String actualizar(TipoComprobante tipoComprobante){
+        String[] id = {""+tipoComprobante.getIdTipoComprobante()};
+        ContentValues cv = new ContentValues();
+        cv.put("idTipoComprobante", tipoComprobante.getIdTipoComprobante());
+        cv.put("tipoComprobante", tipoComprobante.getTipoComprobante());
+        db.update("tipoComprobante", cv, "idTipoComprobante = ?", id);
+        return "Registro Actualizado Correctamente";
+    }
+
+    public String eliminar(Comprobante comprobante){
+        String regAfectados="filas afectadas= ";
+        int contador=0;
+        contador+=db.delete("comprobante", "idComprobante='"+comprobante.getIdComprobante()+"'", null);
+        regAfectados+=contador;
+        return regAfectados;
+    }
+
+    public String eliminar(TipoComprobante tipoComprobante){
+        String regAfectados="filas afectadas= ";
+        int contador=0;
+        contador+=db.delete("tipoComprobante", "idTipoComprobante='"+tipoComprobante.getIdTipoComprobante()+"'", null);
+        regAfectados+=contador;
+        return regAfectados;
+    }
+
+    public Comprobante consultarComprobante(String dato, int tipo){
+        if (tipo==1){//significa que el usuario buscará por id
+            String[] idcomp = {dato};
+            Cursor cursor = db.query("comprobante", camposComprobante, "idComprobante = ?", idcomp, null, null, null);
+            if(cursor.moveToFirst()){
+                Comprobante comprobante = new Comprobante();
+                comprobante.setNumComprobante(cursor.getInt(0));
+                comprobante.setIdComprobante(cursor.getInt(1));
+                comprobante.setFechaComprobante(cursor.getString(2));
+                comprobante.setMonto(cursor.getInt(3));
+                comprobante.setVendedor(cursor.getString(4));
+                comprobante.setIdTipoComprobante(cursor.getInt(5));
+                return comprobante;
+            }else{
+                return null;
+            }
+        }else{//significa que el usuario buscará por monto
+            String[] montocomp = {dato};
+            Cursor cursor = db.query("comprobante", camposComprobante, "monto = ?", montocomp, null, null, null);
+            if(cursor.moveToFirst()){
+                Comprobante comprobante = new Comprobante();
+                comprobante.setNumComprobante(cursor.getInt(0));
+                comprobante.setIdComprobante(cursor.getInt(1));
+                comprobante.setFechaComprobante(cursor.getString(2));
+                comprobante.setMonto(cursor.getInt(3));
+                comprobante.setVendedor(cursor.getString(4));
+                return comprobante;
+            }else{
+                return null;
+            }
+        }
+    }
+    public TipoComprobante consultarTipoComprobante(String idTipoComprobante){
+        String[] idcomp = {idTipoComprobante};
+        Cursor cursor = db.query("tipoComprobante", camposTipoComprobante, "idTipoComprobante = ?", idcomp, null, null, null);
+        if(cursor.moveToFirst()){
+            TipoComprobante tipoComprobante = new TipoComprobante();
+            tipoComprobante.setIdTipoComprobante(cursor.getInt(0));
+            tipoComprobante.setTipoComprobante(cursor.getString(1));
+            return tipoComprobante;
+        }else{
+            return null;
+        }
+    }
+
      /*---------------------------------------------------------------------------------------------------------*/
     private boolean verificarIntegridad(Object dato, int relacion) throws SQLException {
         switch (relacion) {
@@ -712,6 +842,17 @@ public class ControlDBValoracionEstablecimientos {
         String [] encargadoNit={"1000-100000-100-1","20000-2000000-200-2","30000-3000000-300-3"};*/
         /*------------------------------------------------------------------------------------------------------------------*/
 
+        /*  Variables de Elias------*/
+        final int[] VCnum = {0122,45612,31657,98765,43215};
+        final int[] VCid = {1,2,3,4,5};
+        final String[] VCfecha = {"04/03/16","21/06/15","18/02/16","30/5/16","22/1/16"};
+        final int[] VCmonto = {15,60,30,40,55};
+        final String[] VCvendedor = {"Juan Carrera","Kelly Large","Carlos Pereira","Katya Herradura","Leonidas Serpas"};
+        final int[] VCidTipoCom = {1,2,1,3,2};
+
+        final int[] VTidcom = {1,2,3};
+        final String[] VTtipocom = {"Recibo","Factura","Credito Fiscal"};
+
         abrir();
         db.execSQL("DELETE FROM Departamento");
         db.execSQL("DELETE FROM Municipio");
@@ -720,6 +861,9 @@ public class ControlDBValoracionEstablecimientos {
         + " " + "WHEN ((SELECT COUNT(*) FROM Municipio WHERE Municipio.IdDepartamento = OLD.IdDepartamento) > 0)"
         + " " + "THEN RAISE(ABORT,'existen municipios asociados a este departamento')"
         + " " + "END;" + " " + "END;");
+        //Estas  son de Elias
+        db.execSQL("DELETE FROM comprobante");
+        db.execSQL("DELETE FROM tipoComprobante");
 
         /*inserciones katya -----------------------------------------------------------------------------------------------*/
         Cliente cliente = new Cliente();
@@ -793,6 +937,24 @@ public class ControlDBValoracionEstablecimientos {
             tipoEstableci.setTipoEstablec(tipoEstablec[i]);
             insertar(tipoEstableci);
 
+        }
+
+        Comprobante comprobante = new Comprobante();
+        for(int i=0;i<5;i++){
+            comprobante.setNumComprobante(VCnum[i]);
+            comprobante.setIdComprobante(VCid[i]);
+            comprobante.setFechaComprobante(VCfecha[i]);
+            comprobante.setMonto(VCmonto[i]);
+            comprobante.setVendedor(VCvendedor[i]);
+            comprobante.setIdTipoComprobante(VCidTipoCom[i]);
+            insertar(comprobante);
+        }
+
+        TipoComprobante tipo_comprobante = new TipoComprobante();
+        for(int i=0;i<3;i++){
+            tipo_comprobante.setIdTipoComprobante(VTidcom[i]);
+            tipo_comprobante.setTipoComprobante(VTtipocom[i]);
+            insertar(tipo_comprobante);
         }
 
         cerrar();

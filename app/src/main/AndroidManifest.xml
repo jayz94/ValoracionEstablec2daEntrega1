@@ -45,6 +45,16 @@
         <activity android:name=".TiEsEliminarActivity" />
         <activity android:name=".TiEsMenuActivity" />
         <activity android:name=".TiEstInsertarActivity"></activity>
+        <activity android:name=".TipoComprobanteInsertarActivity" />
+        <activity android:name=".TipoComprobanteConsultarActivity" />
+        <activity android:name=".TipoComprobanteActualizarActivity" />
+        <activity android:name=".TipoComprobanteEliminarActivity" />
+        <activity android:name=".TipoComprobanteMenuActivity" />
+        <activity android:name=".ComprobanteActualizarActivity" />
+        <activity android:name=".ComprobanteConsultarActivity" />
+        <activity android:name=".ComprobanteEliminarActivity" />
+        <activity android:name=".ComprobanteInsertarActivity" />
+        <activity android:name=".ComprobanteMenuActivity"></activity>
     </application>
 
 </manifest>
