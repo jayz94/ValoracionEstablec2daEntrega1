@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="1"
-        android:paddingTop="30sp"
+        android:paddingTop="10sp"
         android:paddingLeft="10sp"
         android:paddingRight="10sp">
 
@@ -103,6 +103,7 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:id="@+id/editTextEdad" />
         </TableRow>
         <TableRow
@@ -143,7 +144,7 @@
             android:layout_height="wrap_content"
             android:text="@string/limpiar"
             style="@style/btStyle"
-            android:layout_marginLeft="10sp"
+            android:layout_marginLeft="40sp"
             android:onClick="limpiar"/>
     </LinearLayout>
 

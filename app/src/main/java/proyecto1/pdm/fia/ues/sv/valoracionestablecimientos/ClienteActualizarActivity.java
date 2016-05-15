@@ -25,34 +25,37 @@ public class ClienteActualizarActivity extends AppCompatActivity {
         apellido=(EditText)findViewById(R.id.editTextApellido);
         sexo=(EditText)findViewById(R.id.editTextSexo);
         edad=(EditText)findViewById(R.id.editTextEdad);
+        edad.setText("0");
         correo=(EditText)findViewById(R.id.editTextCorreo);
 
 
     }
 
     public void acCliente (View v){
+        if(dui.getText().toString().equals(""))
+            Toast.makeText(this,"Debe Ingresar el DUI",Toast.LENGTH_SHORT).show();
+        else {
+            Cliente cliente = new Cliente();
+            String Dui = dui.getText().toString();
+            String Nombre = nombre.getText().toString();
+            String Apellido = apellido.getText().toString();
+            String Sexo = sexo.getText().toString();
+            Integer Edad = Integer.valueOf(edad.getText().toString());
+            String Correo = correo.getText().toString();
+            cliente.setDui(Dui);
+            cliente.setNombres(Nombre);
+            cliente.setApellidos(Apellido);
+            cliente.setSexo(Sexo);
+            cliente.setEdad(Edad);
+            cliente.setCorreo(Correo);
 
-        Cliente cliente=new Cliente();
-        String Dui=dui.getText().toString();
-        String Nombre=nombre.getText().toString();
-        String Apellido=apellido.getText().toString();
-        String Sexo=sexo.getText().toString();
-        Integer Edad=Integer.valueOf(edad.getText().toString());
-        String Correo=correo.getText().toString();
-        cliente.setDui(Dui);
-        cliente.setNombres(Nombre);
-        cliente.setApellidos(Apellido);
-        cliente.setSexo(Sexo);
-        cliente.setEdad(Edad);
-        cliente.setCorreo(Correo);
+            helper.abrir();
+            String estado = helper.actualizarCliente(cliente);
+            helper.cerrar();
 
-        helper.abrir();
-        String estado=helper.actualizarCliente(cliente);
-        helper.cerrar();
+            Toast.makeText(this, estado, Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(this,estado,Toast.LENGTH_SHORT).show();
-
-
+        }
     }
 
     public void limpiar(View v){

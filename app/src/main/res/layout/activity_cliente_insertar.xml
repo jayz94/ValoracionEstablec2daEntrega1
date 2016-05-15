@@ -17,7 +17,7 @@
             android:id="@+id/textViewTituloCliente"
             android:paddingLeft="100sp"
             android:textColor="#ffffff"
-            android:textSize="50sp"
+            android:textSize="40sp"
             android:paddingTop="10sp" />
     </LinearLayout>
 
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="1"
-        android:paddingTop="30sp"
+        android:paddingTop="10sp"
         android:paddingLeft="10sp"
         android:paddingRight="10sp">
 
@@ -43,7 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/editTextDui"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:nextFocusDown="@+id/editTextNombre"/>
         </TableRow>
 
         <TableRow
@@ -168,7 +169,7 @@
             android:layout_height="wrap_content"
             android:text="@string/limpiar"
             style="@style/btStyle"
-            android:layout_marginLeft="10sp"
+            android:layout_marginLeft="40sp"
             android:onClick="limpiar"/>
     </LinearLayout>
 

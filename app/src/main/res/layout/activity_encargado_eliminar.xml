@@ -61,7 +61,7 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:text="@string/limpiar"
             android:id="@+id/btLimpiar"
             android:onClick="limpiar"
