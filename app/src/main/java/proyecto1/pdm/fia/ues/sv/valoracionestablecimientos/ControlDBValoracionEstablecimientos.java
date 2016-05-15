@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ControlDBValoracionEstablecimientos {
 
     private static final String[]camposDepartamento = new String [] {"IdDepartamento","NombreDepartamento","Zona"};
@@ -29,7 +32,7 @@ public class ControlDBValoracionEstablecimientos {
     }
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "V29proyecto1.1.s3db";
+        private static final String BASE_DATOS = "base01.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -57,7 +60,7 @@ public class ControlDBValoracionEstablecimientos {
                 /*SQL para la administracion de los usuarios*/
                 db.execSQL("CREATE TABLE Usuario(IdUsuario CHAR(2) NOT NULL PRIMARY KEY,NombreUsuario VARCHAR(30),Clave CHAR(25));");
 
-                db.execSQL("CREATE TABLE OpcionCrud(IdOpcion CHAR(3) NOT NULL PRIMARY KEY,DesOpcion VARCHAR(30),NumCrud INTEGER);");
+                db.execSQL("CREATE TABLE OpcionCrud(IdOpcion CHAR(3) NOT NULL PRIMARY KEY,DesOpcion VARCHAR(30),Activities VARCHAR(30),NumCrud INTEGER);");
 
                 db.execSQL("CREATE TABLE AccesoUsuario(IdOpcion CHAR(3) NOT NULL,IdUsuario CHAR(2) NOT NULL, PRIMARY KEY(IdOpcion,IdUsuario));");
 
@@ -647,6 +650,19 @@ public class ControlDBValoracionEstablecimientos {
         }
         catch(SQLException e){return "Error, Base de datos vacia";}
     }
+    public List listaIdTiEstablec() {
+        List<String> lista = new ArrayList<String>();
+        Cursor c;
+        c = db.rawQuery("SELECT idTipoEstablecimiento FROM TipoEstablecimiento ", null);
+        c.moveToFirst();
+        int cont = c.getCount();
+        for (int i = 0; i < cont; i++) {
+            lista.add(c.getString(0));
+            c.moveToNext();
+        }
+        return lista;
+
+    }
 
     public String ultimoRegistroE() {
         Cursor c;// = db.rawQuery("SELECT idEstablecimiento FROM Establecimiento ", null);
@@ -662,15 +678,15 @@ public class ControlDBValoracionEstablecimientos {
 
     } /* creo que los utilizaba para llenar la base pero ahora no haremos de manera diferente*/
     public String verificarIntegridad(String encargadoNit, String idTipoEstablec, int idMun) {
-        Cursor c; /*= db.rawQuery("SELECT idMunicipio FROM Municipio where idMunicipio=?", new String[]{idMun + ""});
+        Cursor c = db.rawQuery("SELECT idMunicipio FROM Municipio where idMunicipio=?", new String[]{idMun + ""});
         c.moveToFirst();
         if (c.getCount()<1)
             return "El municipio no existe";
-        c = db.rawQuery("SELECT encargadoNit FROM Encargado where encargadoNit=?", new String[]{encargadoNit + ""});
+        c = db.rawQuery("SELECT nit FROM Encargado where nit=?", new String[]{encargadoNit});
         c.moveToFirst();
         if (c.getCount()<1)
             return "El Encargado no existe";
-        c = null;*/
+        c = null;
         c = db.rawQuery("SELECT idTipoEstablecimiento FROM TipoEstablecimiento where idTipoEstablecimiento=?", new String[]{idTipoEstablec + ""});
         c.moveToFirst();
         if (c.getCount()<1)
@@ -693,13 +709,41 @@ public class ControlDBValoracionEstablecimientos {
         return "";
 
     }
+/*metodo para obtener las opciones del CRUD que le corresponde a cada usuario*/
+    public String[] obtenerMenu(String id){
+        Cursor cursorOpciones = db.rawQuery("SELECT IdOpcion FROM AccesoUsuario where IdUsuario=?", new String[]{id});
+        cursorOpciones.moveToFirst();
+        int cont=cursorOpciones.getCount();
+        String[] menu=new String[cont];
+        for(int i=0;i<cont;i++){
+            Cursor cursorDes= db.rawQuery("SELECT DesOpcion FROM OpcionCrud where IdOpcion=?", new String[]{cursorOpciones.getString(0)});
+            cursorDes.moveToFirst();
+            menu[i]=cursorDes.getString(0);
+            cursorOpciones.moveToNext();
+        }
+        return menu;
+    }
+    /*metodo para obtener las opciones del CRUD que le corresponde a cada usuario*/
+    public String[] obtenerActivites(String id){
+        Cursor cursorOpciones = db.rawQuery("SELECT IdOpcion FROM AccesoUsuario where IdUsuario=?", new String[]{id});
+        cursorOpciones.moveToFirst();
+        int cont=cursorOpciones.getCount();
+        String[] menuActiviti=new String[cont];
+        for(int i=0;i<cont;i++){
+            Cursor cursorDes= db.rawQuery("SELECT Activities FROM OpcionCrud where IdOpcion=?", new String[]{cursorOpciones.getString(0)});
+            cursorDes.moveToFirst();
+            menuActiviti[i]=cursorDes.getString(0);
+            cursorOpciones.moveToNext();
+        }
+        return menuActiviti;
+    }
     public void llenarBaseUsuarios(){
         /*IdUsuario,NombreUsuario Clave */
         long cont=0;
         ContentValues usu = new ContentValues();
-        String[] id_Usuario = new String [] {"C1",      "K1",     "S1",        "J1",           "L1"};
-        String[] nomUsuario = new String [] {"Carlos",  "Katy",   "Samuel",    "Juan Carlos",  "Leo"};
-        String[] clave = new String [] {     "carlos",  "katy",   "samuel",    "juan carlos",  "leo"};
+        String[] id_Usuario = new String [] {"C1",      "K1",     "S1",        "J1",           "L1","A1"};
+        String[] nomUsuario = new String [] {"Carlos",  "Katy",   "Samuel",    "Juan Carlos",  "Leo","Admin"};
+        String[] clave = new String [] {     "carlos",  "katy",   "samuel",    "juan carlos",  "leo","admin"};
        for (int i=0;i<id_Usuario.length;i++) {
             usu.put("IdUsuario",id_Usuario[i]);
             usu.put("NombreUsuario",nomUsuario[i]);
@@ -713,11 +757,11 @@ public class ControlDBValoracionEstablecimientos {
                 "017","018","019","020","021","022","023","024",/*modulos de Samuel*/
                 "025","026","027","028","029","030","031","032",/*modulos de Juan Carlos*/
                 "033","034","035","036","037","038","039","040"};/*modulos de Leo*/
-        String[] desOpcion= new String []{"DepartamentoMenuActivity","MunicipioMenuActivity",
+        String[] activities= new String []{"DepartamentoMenuActivity","MunicipioMenuActivity",
                                           "ClienteMenuActivity","EncargadoMenuActivity",
                                          "ComprobanteMenuActivity","TipoComprobanteMenuActivity",
                                          "EstablecMenuActivity","TiEsMenuActivity",
-                                         "ClienteMenuActivity","EncargadoMenuActivity",/*son los de leo*/
+                                         "ValoracionMenuActivity","TipoValoracionMenuActivity",/*son los de leo*/
 
                 "DepartamentoInsertarActivity","DepartamentoEliminarActivity","DepartamentoConsultarActivity", "DepartamentoActualizarActivity",
                 "MunicipioInsertarActivity","MunicipioEliminarActivity","MunicipioConsultarActivity", "MunicipioActualizarActivity",/*carlos*/
@@ -728,20 +772,38 @@ public class ControlDBValoracionEstablecimientos {
                 "EstablecInsertarActivity", "EstablecEliminarActivity", "EstablecConsultarActivity", "EstablecActualizarActivity",
                 "TiEstInsertarActivity", "TiEsEliminarActivity", "TiEsConsultarActivity", "TiEsActualizarActivity",/*JC*/
                 /*leo*/
-                "EstablecInsertarActivity", "EstablecEliminarActivity", "EstablecConsultarActivity", "EstablecActualizarActivity",
-                "TiEstInsertarActivity", "TiEsEliminarActivity", "TiEsConsultarActivity", "TiEsActualizarActivity" };
+                "ValoracionInsertarActivity", "ValoracionEliminarActivity", "ValoracionConsultarActivity", "ValoracionActualizarActivity",
+                "TipoValoracionInsertarActivity", "TipoValoracionEliminarActivity", "TipoValoracionConsultarActivity","TipoValoracionActualizarActivity" };
+        String[] desOpcion= new String []{"Menu Departamento","Menu Municipio",
+                "Menu Cliente","Menu Encargado",
+                "Menu Comprobante","Menu Tipo Comprobante",
+                "Menu Establecimiento","Menu Tipo Establecimiento",
+                "Menu Valoracion","Menu Tipo Valoracion",/*son los de leo*/
+
+                "Insertar Departamento","Eliminar Departamento","Consultar Departamento", "Actualizar Departamento",
+                "Insertar Municipio","Eliminar Municipio","Consultar Municipio", "Actualizar Municipio",/*carlos*/
+                "Insertar Cliente","Consultar Cliente","Actualizar Cliente","Eliminar Cliente",
+                "Insertar Encargado","Consultar Encargado","Actualizar Encargado","Eliminar Encargado",/*katy*/
+                "Actualizar Comprobante","Consultar Comprobante","Eliminar Comprobante", "Insertar Comprobante",
+                "Actualizar Tipo Comprobante", "Consultar Tipo Comprobante", "Eliminar Tipo Comprobante", "Insertar Tipo Comprobante", /*Elias*/
+                "Insertar Establecimiento", "Eliminar Establecimiento", "Consultar Establecimiento", "Actualizar Establecimiento",
+                "Insertar Tipo Establecimiento", "Eliminar Tipo Establecimiento", "Consultar Tipo Establecimiento", "Actualizar Tipo Establecimiento",/*JC*/
+                /*leo*/
+                "Insertar Valoracion", "Eliminar Valoracion", "Consultar Valoracion", "Actualizar Valoracion",
+                "Insertar TipoValoracion", "Eliminar Tipo Valoracion", "Consultar Tipo Valoracion","Actualizar Tipo Valoracion" };
         int[] numCrud = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,
                 26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50};
         for (int i=0;i<idOpcion.length;i++) {
             ContentValues opcionCrud = new ContentValues();
             opcionCrud.put("IdOpcion",idOpcion[i]);
             opcionCrud.put("DesOpcion",desOpcion[i] );
+            opcionCrud.put("Activities",activities[i] );
             opcionCrud.put("NumCrud",numCrud[i]);
             cont=db.insert("OpcionCrud", null, opcionCrud);
         }
-/*AccesoUsuario(IdOpcion CHAR(3) NOT NULL PRIMARY KEY,IdUsuario CHAR(2)*/
-        String[] usuarioID= new String []{"K1","K1","C1","C1","S1","S1","J1","J1","L1"};
-        String[] opcionID= new String []{"100","101","102","103","104","105","106","107","108"};
+/*AccesoUsuario(IdOpcion CHAR(3) NOT NULL PRIMARY KEY,IdUsuario CHAR(2)    permisos hacia modulos del crud*/
+        String[] usuarioID= new String []{"K1","K1","K1","C1","C1","S1","S1","J1","J1","L1","L1",/**/"A1","A1","A1","A1","A1","A1","A1" ,"A1","A1","A1"  /**/};
+        String[] opcionID= new String []{"102","103","104","100","101","104","105","106","107","108","109",/**/"100","101","102","103","104","105","106","107","108","109"/**/};
 
         for (int i=0;i<usuarioID.length;i++) {
             ContentValues AccUsu = new ContentValues();
@@ -752,81 +814,88 @@ public class ControlDBValoracionEstablecimientos {
     }
 
     public String llenarBDProyecto1() {
-        final int[] VDIdDepartamento = {1,2,3,4};
-        final String[] VDNombreDepartamento = {"San Salvador", "San Miguel ", "Santa Ana", "La Union"};
-        final String[] VDZona = {"Central", "Oriental", "Occidental", "Oriental"};
+        Cursor c = db.rawQuery("SELECT idTipoEstablecimiento FROM TipoEstablecimiento",null);
+        c.moveToFirst();
+        if (c.getCount()<1){
+            final int[] VDIdDepartamento = {1,2,3,4};
+            final String[] VDNombreDepartamento = {"San Salvador", "San Miguel ", "Santa Ana", "La Union"};
+            final String[] VDZona = {"Central", "Oriental", "Occidental", "Oriental"};
         /*final String[] VAsexo = {"M","M","F","F"};*/
-        final int[] VMIdMunicipio = {1,2,3,4};
-        final int[] VMIdDepartamento = {4,3,2,1};
-        final String[] VMNombreMunicipio = {"El Carmen", "Metapan", "Moncagua", "San Marcos"};
+            final int[] VMIdMunicipio = {1,2,3,4};
+            final int[] VMIdDepartamento = {4,3,2,1};
+            final String[] VMNombreMunicipio = {"El Carmen", "Metapan", "Moncagua", "San Marcos"};
 
         /*variables katya -----------------------------------------------------------------------------*/
-        final String[] VAdui={"0000000000","0000001010","0000002020"};
-        final String[] VAnombre={"Katya","Marleny","Josselyn"};
-        final String[] VAapellido={"Herrera","Marquez","Herrera"};
-        final String[] VAsexo={"F","F","F"};
-        final Integer[] VAedad={21,40,11};
-        final String[] corrreo={"katya@gmail.com","marleny@gmail.com","josselyn@gmail.com"};
+            final String[] VAdui={"0000000000","0000001010","0000002020"};
+            final String[] VAnombre={"Katya","Marleny","Josselyn"};
+            final String[] VAapellido={"Herrera","Marquez","Herrera"};
+            final String[] VAsexo={"F","F","F"};
+            final Integer[] VAedad={21,40,11};
+            final String[] corrreo={"katya@gmail.com","marleny@gmail.com","josselyn@gmail.com"};
 
-        String[] nit={"1311-300377-101-4","1411-251294-101-2","1566-011224-100-1"};
-        String[] nombre={"Julia","Marta","Jose"};
-        String[] apellido={"Perez","Hernandez","Martinez"};
-        String[] sexo={"F","F","M"};
-        Integer[] edad={40,28,32};
-        String[] cargo={"Supervisor","Gerente","Administrador"};
+            String[] nit={"1311-300377-101-4","1411-251294-101-2","1566-011224-100-1"};
+            String[] nombre={"Julia","Marta","Jose"};
+            String[] apellido={"Perez","Hernandez","Martinez"};
+            String[] sexo={"F","F","M"};
+            Integer[] edad={40,28,32};
+            String[] cargo={"Supervisor","Gerente","Administrador"};
 
         /*variables JC*/
-        final String[] VAidEstablec={"est1","est2","est3"};
-        final String[] VAnombreEstablec={"Don pollo","pizza","Doñamila"};
-        final Integer[] VAidMun={1,2,3};
-        final String[] VAdireccion={"san salvador","Suchitoto","Morazan"};
-        final String[] VAencargadoNit={"456456","78979","7895646"};
-        final String[] VAidTipoEstablecE={"TipoEsta1","TipoEsta2","TipoEsta3"};
-        final String[] telefono={"78941657","789789","78987899"};
+            final String[] VAidEstablec={"est1","est2","est3"};
+            final String[] VAnombreEstablec={"Don pollo","pizza","Doñamila"};
+            final Integer[] VAidMun={1,2,3};
+            final String[] VAdireccion={"san salvador","Suchitoto","Morazan"};
+            final String[] VAencargadoNit={"456456","78979","7895646"};
+            final String[] VAidTipoEstablecE={"TipoEsta1","TipoEsta2","TipoEsta3"};
+            final String[] telefono={"78941657","789789","78987899"};
 
-        String[] idTiestablec={"TipoEsta1","TipoEsta2","TipoEsta3"};
-        String[] tipoEstablec={"comedor","supermercado","bañeario"};
+            String[] idTiestablec={"TipoEsta1","TipoEsta2","TipoEsta3"};
+            String[] tipoEstablec={"comedor","supermercado","bañeario"};
 
        /* String [] numeroEstablecimiento={"100","200","300"};
         String [] direccion={"cuarta calle poniente, casa2","barrio el calbario, casa 2","barrio santa fe, segunda avenida"};
         String [] encargadoNit={"1000-100000-100-1","20000-2000000-200-2","30000-3000000-300-3"};*/
         /*------------------------------------------------------------------------------------------------------------------*/
 
-        abrir();
-        db.execSQL("DELETE FROM Departamento");
-        db.execSQL("DELETE FROM Municipio");
-        db.execSQL("CREATE TRIGGER tg_departamento_delete BEFORE DELETE ON Departamento"
-        + " " + "FOR EACH ROW" + " " + "BEGIN" + " " + "SELECT CASE "
-        + " " + "WHEN ((SELECT COUNT(*) FROM Municipio WHERE Municipio.IdDepartamento = OLD.IdDepartamento) > 0)"
-        + " " + "THEN RAISE(ABORT,'existen municipios asociados a este departamento')"
-        + " " + "END;" + " " + "END;");
+            abrir();
+            db.execSQL("DELETE FROM Establecimiento");
+            db.execSQL("DELETE FROM TipoEstablecimiento");
+            db.execSQL("DELETE FROM cliente");
+            db.execSQL("DELETE FROM encargado");
+            db.execSQL("DELETE FROM Municipio");
+            db.execSQL("DELETE FROM Departamento");
+            db.execSQL("CREATE TRIGGER tg_departamento_delete BEFORE DELETE ON Departamento"
+                    + " " + "FOR EACH ROW" + " " + "BEGIN" + " " + "SELECT CASE "
+                    + " " + "WHEN ((SELECT COUNT(*) FROM Municipio WHERE Municipio.IdDepartamento = OLD.IdDepartamento) > 0)"
+                    + " " + "THEN RAISE(ABORT,'existen municipios asociados a este departamento')"
+                    + " " + "END;" + " " + "END;");
 
         /*inserciones katya -----------------------------------------------------------------------------------------------*/
-        Cliente cliente = new Cliente();
-        for (int i=0; i<3;i++){
-            cliente.setDui(VAdui[i]);
-            cliente.setNombres(VAnombre[i]);
-            cliente.setApellidos(VAapellido[i]);
-            cliente.setSexo(VAsexo[i]);
-            cliente.setEdad(VAedad[i]);
-            cliente.setCorreo(corrreo[i]);
-            insertar(cliente);
+            Cliente cliente = new Cliente();
+            for (int i=0; i<3;i++){
+                cliente.setDui(VAdui[i]);
+                cliente.setNombres(VAnombre[i]);
+                cliente.setApellidos(VAapellido[i]);
+                cliente.setSexo(VAsexo[i]);
+                cliente.setEdad(VAedad[i]);
+                cliente.setCorreo(corrreo[i]);
+                insertar(cliente);
 
-        }
-        Encargado encargado=new Encargado();
-        for(int i=0;i<3;i++){
+            }
+            Encargado encargado=new Encargado();
+            for(int i=0;i<3;i++){
 
-            encargado.setNit(nit[i]);
-            encargado.setNombre(nombre[i]);
-            encargado.setApellido(apellido[i]);
-            encargado.setSexo(sexo[i]);
-            encargado.setEdad(edad[i]);
-            encargado.setCargo(cargo[i]);
+                encargado.setNit(nit[i]);
+                encargado.setNombre(nombre[i]);
+                encargado.setApellido(apellido[i]);
+                encargado.setSexo(sexo[i]);
+                encargado.setEdad(edad[i]);
+                encargado.setCargo(cargo[i]);
 
 
-            insertarEncargado(encargado);
+                insertarEncargado(encargado);
 
-        }
+            }
 
        /* Establecimiento establecimiento=new Establecimiento();
         for (int i=0;i<3;i++){
@@ -837,48 +906,51 @@ public class ControlDBValoracionEstablecimientos {
         }*/
         /*-----------------------------------------------------------------------------------------------------------------*/
 
-        Departamento departamento = new Departamento();
-        for (int i = 0; i < 4; i++) {
-            departamento.setIdDepartamento(VDIdDepartamento[i]);
-            departamento.setNombreDepartamento(VDNombreDepartamento[i]);
-            departamento.setZona(VDZona[i]);
+            Departamento departamento = new Departamento();
+            for (int i = 0; i < 4; i++) {
+                departamento.setIdDepartamento(VDIdDepartamento[i]);
+                departamento.setNombreDepartamento(VDNombreDepartamento[i]);
+                departamento.setZona(VDZona[i]);
 
-            insertar(departamento);
+                insertar(departamento);
+            }
+
+            Municipio municipio = new Municipio();
+            for(int i=0;i<4;i++){
+                municipio.setIdMunicipio(VMIdMunicipio[i]);
+                municipio.setIdDepartamento(VMIdDepartamento[i]);
+                municipio.setNombreMunicipio(VMNombreMunicipio[i]);
+                insertar(municipio);
+            }
+
+            Establecimiento establec = new Establecimiento();
+            for (int i=0; i<3;i++){
+                establec.setIdEstablec(VAidEstablec[i]);
+                establec.setNombreEstablec(VAnombreEstablec[i]);
+                establec.setIdMunicipio(VAidMun[i]);
+                establec.setDireccion(VAdireccion[i]);
+                establec.setEncargadoNit(VAencargadoNit[i]);
+                establec.setIdTipoEstablec(VAidTipoEstablecE[i]);
+                establec.setTelefono(telefono[i]);
+                insertar(establec);
+
+            }
+            TipoEstablecimiento tipoEstableci=new TipoEstablecimiento();
+            for(int i=0;i<3;i++){
+
+                tipoEstableci.setIdTiestablec(idTiestablec[i]);
+                tipoEstableci.setTipoEstablec(tipoEstablec[i]);
+                insertar(tipoEstableci);
+
+            }
+
+
+            cerrar();
+            return "Guardo Correctamente";
+
+        }// finaliza el metodo llenar base de datos
+        return "La base ya tiene datos";
         }
 
-        Municipio municipio = new Municipio();
-        for(int i=0;i<4;i++){
-            municipio.setIdMunicipio(VMIdMunicipio[i]);
-            municipio.setIdDepartamento(VMIdDepartamento[i]);
-            municipio.setNombreMunicipio(VMNombreMunicipio[i]);
-            insertar(municipio);
-        }
 
-        Establecimiento establec = new Establecimiento();
-        for (int i=0; i<3;i++){
-            establec.setIdEstablec(VAidEstablec[i]);
-            establec.setNombreEstablec(VAnombreEstablec[i]);
-            establec.setIdMunicipio(VAidMun[i]);
-            establec.setDireccion(VAdireccion[i]);
-            establec.setEncargadoNit(VAencargadoNit[i]);
-            establec.setIdTipoEstablec(VAidTipoEstablecE[i]);
-            establec.setTelefono(telefono[i]);
-            insertar(establec);
-
-        }
-        TipoEstablecimiento tipoEstableci=new TipoEstablecimiento();
-        for(int i=0;i<3;i++){
-
-            tipoEstableci.setIdTiestablec(idTiestablec[i]);
-            tipoEstableci.setTipoEstablec(tipoEstablec[i]);
-            insertar(tipoEstableci);
-
-        }
-        
-
-
-        cerrar();
-        return "Guardo Correctamente";
-
-    }// finaliza el metodo llenar base de datos
 }

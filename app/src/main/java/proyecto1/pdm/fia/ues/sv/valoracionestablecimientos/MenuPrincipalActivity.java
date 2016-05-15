@@ -10,8 +10,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class MenuPrincipalActivity extends ListActivity {
-    String [] menu={"Tabla Cliente","Tabla Valoracion","Tabla TipoValoracion","Tabla Encargado","Tabla Establecimiento","Tabla TipoEstablecimiento","Tabla Comprobante","Tabla TipoComprobante","Tabla Departamento","Tabla Municipio","llenar Base de Datos"};
-    String [] activities={"ClienteMenuActivity","ComprobanteMenuActivity","TipoComprobanteMenuActivity","EncargadoMenuActivity","EstablecMenuActivity","TiEsMenuActivity","","","DepartamentoMenuActivity","MunicipioMenuActivity"};
+    String [] menu={"Tabla Cliente","Tabla Valoracion","Tabla TipoValoracion","Tabla Encargado","Tabla Establecimiento","Tabla TipoEstablecimiento","Tabla Comprobande","Tabla TipoComprobante","Tabla Departamento","Tabla Municipio","llenar Base de Datos"};
+    String [] activities={"ClienteMenuActivity","","","EncargadoMenuActivity","EstablecMenuActivity","TiEsMenuActivity","","","DepartamentoMenuActivity","MunicipioMenuActivity"};
 
     ControlDBValoracionEstablecimientos BDhelper;
 
