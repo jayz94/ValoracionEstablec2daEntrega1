@@ -78,4 +78,12 @@
     <string name="aTiestablec">Actualizar Tipo Establecimiento</string>
     <string name="eTiestablec">Eliminar Tipo Establecimiento</string>
     <string name="tipo">Tipo</string>
+
+    <string name="num_comprobante">numero de Comprobante</string>
+    <string name="id_comprobante">ID del Comprobante</string>
+    <string name="fecha_comprobante">FechaComprobante</string>
+    <string name="monto">Monto</string>
+    <string name="vendedor">Vendedor</string>
+    <string name="id_tipo_comprobante">ID del tipo de Comprobante</string>
+    <string name="tipo_comprobante">Tipo de Comprobante</string>
 </resources>
