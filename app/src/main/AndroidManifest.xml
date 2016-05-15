@@ -8,13 +8,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MenuPrincipalActivity">
-            <intent-filter>
+        <activity android:name=".MenuPrincipalActivity"/>
+          <!--  <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>-->
         <activity android:name=".ClienteMenuActivity" />
         <activity android:name=".EncargadoMenuActivity" />
         <activity android:name=".ClienteInsertarActivity" />
@@ -44,7 +44,14 @@
         <activity android:name=".TiEsConsultarActivity" />
         <activity android:name=".TiEsEliminarActivity" />
         <activity android:name=".TiEsMenuActivity" />
-        <activity android:name=".TiEstInsertarActivity"></activity>
+        <activity android:name=".TiEstInsertarActivity" />
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

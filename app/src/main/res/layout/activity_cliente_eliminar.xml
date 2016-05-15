@@ -8,7 +8,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150sp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,15 +41,16 @@
             android:id="@+id/btConsultar"
             android:onClick="elimCliente"
             style="@style/btStyle"
-            android:layout_marginLeft="35sp" />
+            android:layout_marginLeft="25sp" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:text="@string/limpiar"
             android:id="@+id/btLimpiarConsultar"
             android:onClick="limpiar"
             style="@style/btStyle"
-            android:layout_marginLeft="20sp" />
+            android:layout_marginLeft="50sp"
+            android:layout_marginRight="30sp"/>
     </LinearLayout>
 </LinearLayout>

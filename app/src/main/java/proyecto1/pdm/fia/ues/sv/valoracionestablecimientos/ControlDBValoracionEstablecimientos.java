@@ -29,7 +29,7 @@ public class ControlDBValoracionEstablecimientos {
     }
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "V10proyecto1.1.s3db";
+        private static final String BASE_DATOS = "V29proyecto1.1.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -53,6 +53,14 @@ public class ControlDBValoracionEstablecimientos {
                         +" "+ "WHEN ((SELECT encargadoNit FROM establecimiento WHERE encargadoNit=OLD.nit) IS NOT NULL)"
                         +" "+ "THEN RAISE (ABORT,'Existen establecimientos asociados')"
                         +" "+ "END; " + " END;");
+
+                /*SQL para la administracion de los usuarios*/
+                db.execSQL("CREATE TABLE Usuario(IdUsuario CHAR(2) NOT NULL PRIMARY KEY,NombreUsuario VARCHAR(30),Clave CHAR(25));");
+
+                db.execSQL("CREATE TABLE OpcionCrud(IdOpcion CHAR(3) NOT NULL PRIMARY KEY,DesOpcion VARCHAR(30),NumCrud INTEGER);");
+
+                db.execSQL("CREATE TABLE AccesoUsuario(IdOpcion CHAR(3) NOT NULL,IdUsuario CHAR(2) NOT NULL, PRIMARY KEY(IdOpcion,IdUsuario));");
+
             }catch(SQLException e){
                 e.printStackTrace();
             }
@@ -327,7 +335,7 @@ public class ControlDBValoracionEstablecimientos {
         String llaveFonarea="No se puede eliminar Encargado, tiene Establecimientos asociados";
         String registrosAfectados="Filas Afectadas= ";
         long contador=0;
-        if(verificarIntegridad(encargado,4)){/*cambie de 1 a 4 xq ahora ese es el case que le corresponde*/
+        if (verificarIntegridad(encargado, 4)){/*cambie de 1 a 4 xq ahora ese es el case que le corresponde*/
             String [] nit={encargado.getNit()};
             try{
                 contador=db.delete("encargado", "nit=?", nit);
@@ -383,7 +391,7 @@ public class ControlDBValoracionEstablecimientos {
 
 
         String []nit={encargado.getNit()};
-        contador=db.update("encargado",ce,"nit=?",nit);
+        contador = db.update("encargado", ce, "nit=?", nit);
         if(contador==-1 || contador==0)
         {
             regInsertado="Error al actualizar registros de encargado";
@@ -670,6 +678,78 @@ public class ControlDBValoracionEstablecimientos {
         return null;
 
     }
+    /*By Juan Carlos Cruz*/
+    public String logear(String usuario, String pass){
+        Cursor c = db.rawQuery("SELECT IdUsuario FROM Usuario ", null);
+        c.moveToFirst();
+        if (c.getCount()<1)
+            llenarBaseUsuarios();/*al momento de llenar la base con los datos del usuario*/
+
+        Cursor c2 = db.rawQuery("SELECT IdUsuario FROM Usuario where NombreUsuario=? AND Clave=?", new String[]{usuario,pass});
+        if (c2.moveToFirst()) {
+            //Se encontro usuario
+            return c2.getString(0);
+        }
+        return "";
+
+    }
+    public void llenarBaseUsuarios(){
+        /*IdUsuario,NombreUsuario Clave */
+        long cont=0;
+        ContentValues usu = new ContentValues();
+        String[] id_Usuario = new String [] {"C1",      "K1",     "S1",        "J1",           "L1"};
+        String[] nomUsuario = new String [] {"Carlos",  "Katy",   "Samuel",    "Juan Carlos",  "Leo"};
+        String[] clave = new String [] {     "carlos",  "katy",   "samuel",    "juan carlos",  "leo"};
+       for (int i=0;i<id_Usuario.length;i++) {
+            usu.put("IdUsuario",id_Usuario[i]);
+            usu.put("NombreUsuario",nomUsuario[i]);
+            usu.put("Clave", clave[i]);
+            cont=db.insert("Usuario", null, usu);
+        }
+/* OpcionCrud(IdOpcion CHAR(3) NOT NULL PRIMARY KEY,DesOpcion VARCHAR(30),NumCrud*/
+        String[] idOpcion = new String [] {"100","101","102","103","104","105","106","107","108","109",/*modulos de menu*/
+                "001","002","003","004","005","006","007","008",/*modulos Carlos*/
+                "009","010","011","012","013","014","015","016",/*modulos de Katy*/
+                "017","018","019","020","021","022","023","024",/*modulos de Samuel*/
+                "025","026","027","028","029","030","031","032",/*modulos de Juan Carlos*/
+                "033","034","035","036","037","038","039","040"};/*modulos de Leo*/
+        String[] desOpcion= new String []{"DepartamentoMenuActivity","MunicipioMenuActivity",
+                                          "ClienteMenuActivity","EncargadoMenuActivity",
+                                         "ComprobanteMenuActivity","TipoComprobanteMenuActivity",
+                                         "EstablecMenuActivity","TiEsMenuActivity",
+                                         "ClienteMenuActivity","EncargadoMenuActivity",/*son los de leo*/
+
+                "DepartamentoInsertarActivity","DepartamentoEliminarActivity","DepartamentoConsultarActivity", "DepartamentoActualizarActivity",
+                "MunicipioInsertarActivity","MunicipioEliminarActivity","MunicipioConsultarActivity", "MunicipioActualizarActivity",/*carlos*/
+                "ClienteInsertarActivity","ClienteConsultarActivity","ClienteActualizarActivity","ClienteEliminarActivity",
+                "EncargadoInsertarActivity","EncargadoConsultarActivity","EncargadoActualizarActivity","EncargadoEliminarActivity",/*katy*/
+                "ComprobanteActualizarActivity","ComprobanteConsultarActivity","ComprobanteEliminarActivity", "ComprobanteInsertarActivity",
+                "TipoComprobanteActualizarActivity", "TipoComprobanteConsultarActivity", "TipoComprobanteEliminarActivity", "TipoComprobanteInsertarActivity", /*Elias*/
+                "EstablecInsertarActivity", "EstablecEliminarActivity", "EstablecConsultarActivity", "EstablecActualizarActivity",
+                "TiEstInsertarActivity", "TiEsEliminarActivity", "TiEsConsultarActivity", "TiEsActualizarActivity",/*JC*/
+                /*leo*/
+                "EstablecInsertarActivity", "EstablecEliminarActivity", "EstablecConsultarActivity", "EstablecActualizarActivity",
+                "TiEstInsertarActivity", "TiEsEliminarActivity", "TiEsConsultarActivity", "TiEsActualizarActivity" };
+        int[] numCrud = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,
+                26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50};
+        for (int i=0;i<idOpcion.length;i++) {
+            ContentValues opcionCrud = new ContentValues();
+            opcionCrud.put("IdOpcion",idOpcion[i]);
+            opcionCrud.put("DesOpcion",desOpcion[i] );
+            opcionCrud.put("NumCrud",numCrud[i]);
+            cont=db.insert("OpcionCrud", null, opcionCrud);
+        }
+/*AccesoUsuario(IdOpcion CHAR(3) NOT NULL PRIMARY KEY,IdUsuario CHAR(2)*/
+        String[] usuarioID= new String []{"K1","K1","C1","C1","S1","S1","J1","J1","L1"};
+        String[] opcionID= new String []{"100","101","102","103","104","105","106","107","108"};
+
+        for (int i=0;i<usuarioID.length;i++) {
+            ContentValues AccUsu = new ContentValues();
+            AccUsu.put("IdOpcion",opcionID[i]);
+            AccUsu.put("IdUsuario",usuarioID[i]);
+            cont=db.insert("AccesoUsuario", null, AccUsu);
+        }
+    }
 
     public String llenarBDProyecto1() {
         final int[] VDIdDepartamento = {1,2,3,4};
@@ -795,8 +875,9 @@ public class ControlDBValoracionEstablecimientos {
 
         }
 
+
         cerrar();
         return "Guardo Correctamente";
 
-    }
+    }// finaliza el metodo llenar base de datos
 }
