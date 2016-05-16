@@ -28,7 +28,7 @@ public class ComprobanteMenuActivity extends ListActivity {
 
         String nombreValue=activities[position];
         try{
-            Class<?> clase =Class.forName("proyecto1.pdm.fia.ues.sv.valoracionestablecimientos."+nombreValue);
+            Class<?> clase =Class.forName("fia.ues.sv.valoracionestablecimientos."+nombreValue);
             Intent inte=new Intent(this, clase);
             this.startActivity(inte);
         }catch (ClassNotFoundException e){

@@ -37,17 +37,17 @@ public class ComprobanteInsertarActivity extends Activity {
         String vende  = editVendedor.getText().toString();
         int idTipo    = Integer.parseInt(editIdTipoComprobante.getText().toString());
         String regInsertados;
-            Comprobante comprobante=new Comprobante();
-            comprobante.setNumComprobante(numcompro);
-            comprobante.setIdComprobante(idcompro);
-            comprobante.setFechaComprobante(fecha);
-            comprobante.setMonto(monto);
-            comprobante.setVendedor(vende);
-            comprobante.setIdTipoComprobante(idTipo);
-            helper.abrir();
-            regInsertados=helper.insertar(comprobante);
-            helper.cerrar();
-            Toast.makeText(this,regInsertados,Toast.LENGTH_SHORT).show();
+        Comprobante comprobante=new Comprobante();
+        comprobante.setNumComprobante(numcompro);
+        comprobante.setIdComprobante(idcompro);
+        comprobante.setFechaComprobante(fecha);
+        comprobante.setMonto(monto);
+        comprobante.setVendedor(vende);
+        comprobante.setIdTipoComprobante(idTipo);
+        helper.abrir();
+        regInsertados=helper.insertar(comprobante);
+        helper.cerrar();
+        Toast.makeText(this,regInsertados,Toast.LENGTH_SHORT).show();
 
     }
 

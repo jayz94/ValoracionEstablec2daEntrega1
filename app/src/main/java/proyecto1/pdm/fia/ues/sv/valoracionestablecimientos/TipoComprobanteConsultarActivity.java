@@ -27,17 +27,17 @@ public class TipoComprobanteConsultarActivity extends Activity {
         if (id.equals("")){
             Toast.makeText(this,"Error, debe digitar id",Toast.LENGTH_SHORT).show();
         }else{//Busca por id
-                helper.abrir();
-                TipoComprobante tipocomprobante= helper.consultarTipoComprobante(id);
-                helper.cerrar();
-                if(tipocomprobante == null)
-                    Toast.makeText(this, "Tipo de Comprobante con id " + id +" no encontrado", Toast.LENGTH_LONG).show();
-                else {
-                    editTipoComprobante.setText("" + tipocomprobante.getTipoComprobante());
-                    editIdTipoComprobante.setText("" + tipocomprobante.getIdTipoComprobante());
+            helper.abrir();
+            TipoComprobante tipocomprobante= helper.consultarTipoComprobante(id);
+            helper.cerrar();
+            if(tipocomprobante == null)
+                Toast.makeText(this, "Tipo de Comprobante con id " + id +" no encontrado", Toast.LENGTH_LONG).show();
+            else {
+                editTipoComprobante.setText("" + tipocomprobante.getTipoComprobante());
+                editIdTipoComprobante.setText("" + tipocomprobante.getIdTipoComprobante());
 
-                }
             }
+        }
 
     }
 

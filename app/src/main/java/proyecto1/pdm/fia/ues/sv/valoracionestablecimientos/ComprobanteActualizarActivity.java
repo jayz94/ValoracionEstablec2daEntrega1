@@ -1,10 +1,11 @@
 package proyecto1.pdm.fia.ues.sv.valoracionestablecimientos;
 
-import android.app.Activity;
+
 import android.os.Bundle;
-import android.view.View;
+import android.app.Activity;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.view.View;
 
 public class ComprobanteActualizarActivity extends Activity {
 
