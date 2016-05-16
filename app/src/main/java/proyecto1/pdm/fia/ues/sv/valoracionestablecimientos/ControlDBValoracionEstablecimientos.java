@@ -35,7 +35,7 @@ public class ControlDBValoracionEstablecimientos {
     }
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "base01.s3db";
+        private static final String BASE_DATOS = "base02.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -932,8 +932,8 @@ public class ControlDBValoracionEstablecimientos {
             cont=db.insert("OpcionCrud", null, opcionCrud);
         }
 /*AccesoUsuario(IdOpcion CHAR(3) NOT NULL PRIMARY KEY,IdUsuario CHAR(2)    permisos hacia modulos del crud*/
-        String[] usuarioID= new String []{"K1","K1","K1","C1","C1","S1","S1","J1","J1","L1","L1",/**/"A1","A1","A1","A1","A1","A1","A1" ,"A1","A1","A1"  /**/};
-        String[] opcionID= new String []{"102","103","104","100","101","104","105","106","107","108","109",/**/"100","101","102","103","104","105","106","107","108","109"/**/};
+        String[] usuarioID= new String []{"K1","K1","K1","C1","C1","S1","S1","J1","J1","J1","L1","L1",/**/"A1","A1","A1","A1","A1","A1","A1" ,"A1","A1","A1"  /**/};
+        String[] opcionID= new String []{"102","103","104","100","101","104","105","106","107","007","108","109",/**/"100","101","102","103","104","105","106","107","108","109"/**/};
 
         for (int i=0;i<usuarioID.length;i++) {
             ContentValues AccUsu = new ContentValues();
@@ -969,7 +969,6 @@ public class ControlDBValoracionEstablecimientos {
             String[] sexo={"F","F","M"};
             Integer[] edad={40,28,32};
             String[] cargo={"Supervisor","Gerente","Administrador"};
-
         /*variables JC*/
             final String[] VAidEstablec={"est1","est2","est3"};
             final String[] VAnombreEstablec={"Don pollo","pizza","Doñamila"};
