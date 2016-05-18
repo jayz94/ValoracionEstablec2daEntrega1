@@ -3,10 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="75sp"
+        android:background="#00BCD4">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comprobante"
+            android:paddingLeft="20sp"
+            android:textColor="#ffffff"
+            android:textSize="50sp" />
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/id_comprobante" />
+        android:text="@string/id_comprobante"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"/>
     <EditText
         android:id="@+id/editIdComprobanteE"
         android:layout_width="fill_parent"
@@ -17,5 +34,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Eliminar"
-        android:onClick="eliminarComprobante"/>
+        android:onClick="eliminarComprobante"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="80dp"
+        style="@style/btStyle"/>
 </LinearLayout>

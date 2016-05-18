@@ -2,26 +2,35 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:stretchColumns="1"
     android:orientation="vertical">
 
-    <TextView
-        android:text="@string/aestablecimiento"
-        android:gravity="center" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="75sp"
+        android:background="#00BCD4">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/establecimiento"
+            android:textColor="#ffffff"
+            android:textSize="50sp"
+            android:paddingTop="10sp" />
+    </LinearLayout>
 
     <TableRow>
 
         <TextView
             android:text="@string/identificador"
-            android:layout_marginTop="20px"
+            android:layout_marginTop="10px"
             android:layout_marginStart="12dp" />
 
         <EditText
             android:id="@+id/editId"
             android:inputType="text"
             android:maxLength="6"
-            android:layout_marginTop="20px"
+            android:layout_marginTop="10px"
             android:layout_marginEnd="55dp" />
     </TableRow>
 
@@ -30,14 +39,14 @@
 
         <TextView
             android:text="@string/nombreEstablec"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginStart="12dp" />
 
         <EditText
             android:id="@+id/editNombreEstablec"
             android:inputType="text"
             android:maxLength="20"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:nextFocusDown="@+id/editDireccion"
             android:layout_marginEnd="55dp" />
     </TableRow>
@@ -46,14 +55,14 @@
 
         <TextView
             android:text="@string/direccionEstablec"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginStart="12dp" />
 
         <EditText
             android:id="@+id/editDireccion"
             android:inputType="text"
             android:maxLength="100"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="55dp" />
     </TableRow>
 
@@ -61,14 +70,14 @@
 
         <TextView
             android:text="@string/telefono"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="12dp" />
 
         <EditText
             android:id="@+id/editTelefono"
             android:inputType="number"
             android:maxLength="8"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="55dp" />
     </TableRow>
 
@@ -76,14 +85,12 @@
 
         <TextView
             android:text="@string/encargadoNit"
-            android:layout_marginTop="15dp"
             android:layout_marginStart="12dp" />
 
-        <EditText
+        <Spinner
             android:id="@+id/editEncargadoNit"
             android:inputType="text"
             android:maxLength="17"
-            android:layout_marginTop="15dp"
             android:layout_marginEnd="55dp" />
     </TableRow>
 
@@ -91,13 +98,11 @@
 
         <TextView
             android:text="@string/idMun"
-            android:layout_marginTop="15dp"
             android:layout_marginStart="12dp" />
 
-        <EditText
+        <Spinner
             android:id="@+id/editIdMunicipioE"
             android:inputType="number"
-            android:layout_marginTop="15dp"
             android:layout_marginEnd="55dp" />
     </TableRow>
 
@@ -105,15 +110,17 @@
 
         <TextView
             android:text="@string/idtipoEstablec"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="12dp" />
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="12dp"
+            />
 
-        <EditText
+        <Spinner
             android:id="@+id/editIdTipoEstablecl"
             android:inputType="text"
             android:maxLength="6"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="55dp" />
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="55dp"
+            android:height="0dp"/>
     </TableRow>
 
 
@@ -124,14 +131,16 @@
             <Button
                 android:onClick="actualizar"
                 android:text="@string/actualizar"
-                android:layout_width="100dp"
-                android:layout_marginEnd="55dp"
-                android:layout_marginStart="12dp" />
+                android:layout_width="150dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="12dp"
+                style="@style/btStyle"/>
 
             <Button
                 android:onClick="limpiarTexto"
                 android:text="@string/limpiar"
-                android:layout_width="100dp" />
+                android:layout_width="150dp"
+                style="@style/btStyle"/>
         </TableRow>
     </TableLayout>
 </TableLayout>

@@ -2,14 +2,23 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:stretchColumns="1"
     android:orientation="vertical">
 
-    <TextView
-        android:text="@string/aTiestablec"
-        android:gravity="center" />
+    <LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="75sp"
+    android:background="#00BCD4">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tipoEstablec"
+        android:paddingLeft="10sp"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:paddingTop="10sp" />
+</LinearLayout>
     <TableRow>
 
         <TextView
@@ -51,14 +60,16 @@
                 android:id="@+id/buttonActualizar"
                 android:onClick="actualizarTiEstablec"
                 android:text="@string/actualizar"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_marginEnd="55dp"
-                android:layout_marginStart="12dp" />
+                android:layout_marginStart="12dp"
+                style="@style/btStyle"/>
 
             <Button
                 android:onClick="limpiarTexto"
                 android:text="@string/limpiar"
-                android:layout_width="100dp" />
+                android:layout_width="wrap_content"
+                style="@style/btStyle"/>
         </TableRow>
     </TableLayout>
 </TableLayout>

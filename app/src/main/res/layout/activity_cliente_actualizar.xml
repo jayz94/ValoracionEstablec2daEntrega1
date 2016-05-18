@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cliente_titulo"
-            android:id="@+id/textViewTituloCliente"
+            android:id="@+id/textViewTituloomprobante"
             android:paddingLeft="100sp"
             android:textColor="#ffffff"
             android:textSize="50sp"

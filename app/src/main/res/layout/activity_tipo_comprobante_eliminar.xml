@@ -3,6 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="75sp"
+        android:background="#00BCD4"
+        android:id="@+id/textView">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comprobante"
+            android:paddingLeft="10sp"
+            android:textColor="#ffffff"
+            android:textSize="40sp"
+            android:paddingTop="10sp" />
+    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,5 +32,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Eliminar"
-        android:onClick="eliminarTipoComprobante"/>
+        android:onClick="eliminarTipoComprobante"
+        style="@style/btStyle"/>
 </LinearLayout>

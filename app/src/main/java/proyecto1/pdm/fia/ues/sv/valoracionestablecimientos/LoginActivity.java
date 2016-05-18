@@ -26,6 +26,10 @@ public class LoginActivity extends Activity {
         btnLogin = (Button) findViewById(R.id.btnLogin);
         notaError= (TextView) findViewById(R.id.nota);
         helper=new ControlDBValoracionEstablecimientos(this);
+        helper.abrir();
+        String tost=helper.llenarBDProyecto1();
+        Toast.makeText(this, tost, Toast.LENGTH_SHORT).show();
+        helper.cerrar();
     }
 
     public void logear(View v){
@@ -39,8 +43,8 @@ public class LoginActivity extends Activity {
                logeo= helper.logear(editUsuario.getText().toString(),editPassword.getText().toString());
 
                 //CODIGO PARA LLENAR BASE DE DATOS
-                String tost=helper.llenarBDProyecto1();
-                Toast.makeText(this, tost, Toast.LENGTH_SHORT).show();
+                //String tost=helper.llenarBDProyecto1();
+                //Toast.makeText(this, tost, Toast.LENGTH_SHORT).show();
                 helper.cerrar();
                 if(logeo=="")
                     notaError.setText("No esta regitrado");

@@ -20,7 +20,7 @@ public class MunicipioMenuActivity extends ListActivity {
         /*setContentView(R.layout.activity_municipio_menu);*/
         setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menu));
         ListView listView = getListView();
-        listView.setBackgroundColor(Color.rgb(64, 0, 128));
+        listView.setBackgroundColor(Color.rgb(220, 220, 255));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, menu);
         setListAdapter(adapter);
     }
@@ -28,7 +28,7 @@ public class MunicipioMenuActivity extends ListActivity {
     protected void onListItemClick(ListView l,View v,int position,long id){
         super.onListItemClick(l, v, position, id);
         String nombreValue=activities[position];
-        l.getChildAt(position).setBackgroundColor(Color.rgb(255, 128, 0));
+        l.getChildAt(position).setBackgroundColor(Color.rgb(200, 200, 255));
         try{
             Class<?> clase=Class.forName("proyecto1.pdm.fia.ues.sv.valoracionestablecimientos."+nombreValue);
             Intent inte = new Intent(this,clase);

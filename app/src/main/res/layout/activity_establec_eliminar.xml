@@ -7,10 +7,23 @@
     tools:context="proyecto1.pdm.fia.ues.sv.valoracionestablecimientos.EstablecEliminarActivity">
 
 
-    <TextView
-        android:text="@string/eestablecimiento"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:layout_gravity="center_horizontal" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="75sp"
+        android:background="#00BCD4"
+        android:id="@+id/textView"
+        >
+        <TextView
+            android:text="@string/establecimiento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="5sp"
+            android:textColor="#ffffff"
+            android:textSize="50sp"
+            android:paddingTop="10sp" />
+    </LinearLayout>
 
     <TextView
         android:text="@string/identificador"
@@ -30,5 +43,6 @@
         android:layout_height="wrap_content"
         android:text="@string/eliminar"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:onClick="eliminar" />
+        android:onClick="eliminar"
+        style="@style/btStyle"/>
 </TableLayout>

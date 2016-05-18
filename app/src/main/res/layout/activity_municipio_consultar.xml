@@ -14,16 +14,87 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="75sp"
+        android:background="#00BCD4">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/municipio"
+            android:paddingLeft="50sp"
+            android:textColor="#ffffff"
+            android:textSize="50sp"
+            android:paddingTop="10sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/IdMunicipio"/>
-    <EditText
-        android:id="@+id/editIdMunicipio"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:maxLength="7"/><!-- ya sabemos porque -->
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/IdMunicipio"/>
+        <EditText
+            android:id="@+id/editIdMunicipio"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="7"/>
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/botonConsultar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/consultar"
+                android:onClick="consultarMunicipio"
+                style="@style/btStyle"/>
+            <Button
+                android:id="@+id/botonLimpiar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/limpiar"
+                android:onClick="limpiarTexto"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                style="@style/btStyle"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IdDepartamento"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"/><!-- revisar si esta bien-->
+        <EditText
+            android:id="@+id/editIdDepartamento"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:enabled ="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:cursorVisible="false"
+            android:longClickable="false" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/NombreMunicipio" />
+        <EditText
+            android:id="@+id/editNombreMunicipio"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:enabled="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:cursorVisible="false"
+            android:longClickable="false"/>
+
+    </LinearLayout>
+    <!-- ya sabemos porque -->
     <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,23 +115,7 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:maxLength="5"/> -->
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/botonConsultar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/consultar"
-            android:onClick="consultarMunicipio"/>
-        <Button
-            android:id="@+id/botonLimpiar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/limpiar"
-            android:onClick="limpiarTexto"/>
-    </LinearLayout>
+
     <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -75,32 +130,5 @@
         android:focusableInTouchMode="false"
         android:cursorVisible="false"
         android:longClickable="false" /> -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="IdDepartamento" /><!-- revisar si esta bien-->
-    <EditText
-        android:id="@+id/editIdDepartamento"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:enabled ="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:cursorVisible="false"
-        android:longClickable="false" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/NombreMunicipio" />
-    <EditText
-        android:id="@+id/editNombreMunicipio"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:enabled="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:cursorVisible="false"
-        android:longClickable="false"/>
+
 </LinearLayout>

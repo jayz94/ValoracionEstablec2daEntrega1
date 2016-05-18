@@ -6,14 +6,24 @@
     tools:context="proyecto1.pdm.fia.ues.sv.valoracionestablecimientos.EstablecConsultarActivity"
     android:weightSum="1">
 
-    <TextView
-        android:text="@string/cestablecimiento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp"
-        android:id="@+id/textView" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="75sp"
+        android:background="#00BCD4"
+        android:id="@+id/textView"
+        >
+        <TextView
+            android:text="@string/establecimiento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="5sp"
+            android:textColor="#ffffff"
+            android:textSize="50sp"
+            android:paddingTop="10sp" />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/viewIdEstablec"
@@ -43,19 +53,21 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="76dp"
         android:nextFocusDown="@+id/editNombreEstablec"
-        android:onClick="limpiarTexto" />
+        android:onClick="limpiarTexto"
+        style="@style/btStyle"/>
 
     <Button
         android:id="@+id/buttonConsultar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="16dp"
         android:text="@string/consultar"
         android:layout_below="@+id/viewIdEstablec"
         android:layout_toStartOf="@+id/buttonLimpiar"
-        android:layout_marginEnd="32dp"
-        android:onClick="consultar" />
+        android:layout_marginEnd="22dp"
+        android:onClick="consultar"
+        style="@style/btStyle"/>
 
     <TextView
         android:text="@string/nombreEstablec"

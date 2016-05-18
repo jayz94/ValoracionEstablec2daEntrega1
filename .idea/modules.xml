@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ValoracionEstablec.iml" filepath="$PROJECT_DIR$/ValoracionEstablec.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ValoracionEstablecGIT.iml" filepath="$PROJECT_DIR$/ValoracionEstablecGIT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ValoracionEstablec2daEntrega.iml" filepath="$PROJECT_DIR$/ValoracionEstablec2daEntrega.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

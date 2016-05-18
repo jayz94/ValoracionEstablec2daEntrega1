@@ -13,10 +13,23 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:stretchColumns="1"
-    android:paddingTop="4dip"
-    >
-    <TableRow >
+    android:stretchColumns="1"    >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="75sp"
+        android:background="#00BCD4">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/municipio"
+            android:paddingLeft="50sp"
+            android:textColor="#ffffff"
+            android:textSize="50sp"
+            android:paddingTop="10sp" />
+    </LinearLayout>
+    <TableRow
+        android:layout_margin="@dimen/activity_horizontal_margin">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,10 +69,18 @@
         <Button
             android:layout_width="wrap_content"
             android:text="@string/eliminar"
-            android:onClick="eliminarMunicipio"/>
+            android:onClick="eliminarMunicipio"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            style="@style/btStyle"/>
         <Button
             android:layout_width="wrap_content"
             android:text="@string/limpiar"
-            android:onClick="limpiar"/>
+            android:onClick="limpiar"
+            android:layout_marginTop="60dp"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            style="@style/btStyle"/>
     </TableRow>
 </TableLayout>

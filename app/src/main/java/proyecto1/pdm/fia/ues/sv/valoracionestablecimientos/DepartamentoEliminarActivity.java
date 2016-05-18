@@ -19,6 +19,7 @@ public class DepartamentoEliminarActivity extends Activity {
 
         controlhelper=new ControlDBValoracionEstablecimientos (this);
         editIdDepartamento=(EditText)findViewById(R.id.editIdDepartamento);
+        editIdDepartamento.setText("0");
     }
     public void eliminarDepartamento(View v){
         String regEliminadas;

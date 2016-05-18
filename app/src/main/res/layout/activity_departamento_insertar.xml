@@ -13,14 +13,30 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="30dip"
     android:stretchColumns="1" >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="75sp"
+        android:background="#00BCD4">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/departamento"
+            android:paddingLeft="10sp"
+            android:textColor="#ffffff"
+            android:textSize="50sp"
+            android:paddingTop="10sp" />
+    </LinearLayout>
+
     <TableRow>
-        <TextView android:text="@string/IdDepartamento"/>
+        <TextView android:text="@string/IdDepartamento"
+            android:layout_marginTop="20dp"/>
         <EditText
             android:id="@+id/editIdDepartamento"
             android:inputType="number"
-            android:maxLength="7" />
+            android:maxLength="7"
+            android:layout_marginTop="20dp"/>
     </TableRow>
     <TableRow>
         <TextView android:text="@string/NombreDepartamento" />
@@ -49,9 +65,13 @@
     <TableRow>
         <Button
             android:onClick="insertarDepartamento"
-            android:text="@string/insertar" />
+            android:text="@string/insertar"
+            android:layout_marginTop="20dp"
+            style="@style/btStyle"/>
         <Button
             android:onClick="limpiarTexto"
-            android:text="@string/limpiar" />
+            android:text="@string/limpiar"
+            android:layout_marginTop="60dp"
+            style="@style/btStyle"/>
     </TableRow>
 </TableLayout>

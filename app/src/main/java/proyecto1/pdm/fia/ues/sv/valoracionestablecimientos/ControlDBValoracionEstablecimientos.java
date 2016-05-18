@@ -24,6 +24,9 @@ public class ControlDBValoracionEstablecimientos {
     /*variables Elias --------------------------------------------------------------------------------------------*/
     private static final String[] camposComprobante= new String []{"numComprobante", "idComprobante","fechaComprobante","monto","vendedor","idTipoComprobante"};
     private static final String[] camposTipoComprobante = new String[]{"idTipoComprobante","TipoComprobante"};
+    /*variables Leo --------------------------------------------------------------------------------------------*/
+    private static final String[]camposValoracion = new String[]{"idValoracion","idTipoValoracion","Calificacion","FechaValoracion","Comentario","idCliente","idEstablecimiento"};
+    private static final String[]camposTipoValoracion = new String[]{"idTipoValoracion", "TipoDeValoracion"};
 
     private final Context context;
     private DatabaseHelper DBHelper;
@@ -35,7 +38,7 @@ public class ControlDBValoracionEstablecimientos {
     }
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "base02.s3db";
+        private static final String BASE_DATOS = "base03.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -43,6 +46,23 @@ public class ControlDBValoracionEstablecimientos {
         @Override
         public void onCreate(SQLiteDatabase db) {
             try {
+                db.execSQL("drop table if exists Departamento");
+                db.execSQL("drop table if exists Municipio");
+                db.execSQL("drop table if exists TipoEstablecimiento");
+                db.execSQL("drop table if exists Establecimiento");
+                db.execSQL("drop trigger if exists delete_TipoEs");
+                db.execSQL("drop table if exists cliente");
+                db.execSQL("drop table if exists encargado");
+                db.execSQL("drop table if exists comprobante");
+                db.execSQL("drop table if exists tipoComprobante");
+                db.execSQL("drop trigger if exists fk_establecimiento_encargado");
+                db.execSQL("drop table if exists TipoValoracion");
+                db.execSQL("drop table if exists Valoracion");
+                db.execSQL("drop trigger if exists EliminarTipoValoracion_Valoracion");
+                db.execSQL("drop table if exists Usuario");
+                db.execSQL("drop table if exists OpcionCrud");
+                db.execSQL("drop table if exists AccesoUsuario");
+
                 db.execSQL("CREATE TABLE Departamento(IdDepartamento INTEGER NOT NULL PRIMARY KEY,NombreDepartamento VARCHAR(30),Zona VARCHAR(30));");
                 db.execSQL("CREATE TABLE Municipio(IdMunicipio INTERGER NOT NULL PRIMARY KEY,IdDepartamento INTERGER,NombreMunicipio VARCHAR(30));");
                 /*Consultas juan --------------------------------------------------------------------------------------------------*/
@@ -61,6 +81,24 @@ public class ControlDBValoracionEstablecimientos {
                         +" "+"FOR EACH ROW BEGIN SELECT CASE"
                         +" "+ "WHEN ((SELECT encargadoNit FROM establecimiento WHERE encargadoNit=OLD.nit) IS NOT NULL)"
                         +" "+ "THEN RAISE (ABORT,'Existen establecimientos asociados')"
+                        +" "+ "END; " + " END;");
+                db.execSQL("drop trigger if exists fk_tipoComprobante_comprobante");
+                db.execSQL("CREATE TRIGGER fk_tipoComprobante_comprobante " +
+                        "BEFORE INSERT ON comprobante " +
+                        "FOR EACH ROW " +
+                        "BEGIN " +
+                        "SELECT CASE " +
+                        "WHEN ((SELECT idTipoComprobante FROM tipoComprobante WHERE idTipoComprobante = NEW.idTipoComprobante) IS NULL) " +
+                        "THEN RAISE(ABORT, 'No existe ese tipo de comprobante') " +
+                        "END; " +
+                        "END");
+                /*consultas Leo -----------------------------------------------------------------------------------------------*/
+                db.execSQL("CREATE TABLE Valoracion(IdValoracion INTEGER NOT NULL PRIMARY KEY, IdTipoValoracion INTEGER,Calificacion INTEGER, FechaValoracion VARCHAR(30),Comentario VARCHAR(50),idCliente VARCHAR(10) NOT NULL,idEstablecimiento varchar(6));");
+                db.execSQL("CREATE TABLE TipoValoracion(IdTipoValoracion INTEGER NOT NULL PRIMARY KEY,TipoDeValoracion VARCHAR(30));");
+                db.execSQL("CREATE TRIGGER EliminarTipoValoracion_Valoracion BEFORE DELETE ON TipoValoracion"
+                        +" "+"FOR EACH ROW BEGIN SELECT CASE"
+                        +" "+ "WHEN ((SELECT IdTipoValoracion FROM Valoracion WHERE Valoracion.IdTipoValoracion = OLD.IdTipoValoracion) IS NOT NULL)"
+                        +" "+ "THEN RAISE (ABORT,'No se puede eliminar el registro porque se encuentra asociado a otro/otros registros en la tabla Valoracion')"
                         +" "+ "END; " + " END;");
 
                 /*SQL para la administracion de los usuarios*/
@@ -262,7 +300,7 @@ public class ControlDBValoracionEstablecimientos {
 
     public String eliminarCliente(Cliente cliente){
 
-        String regAfectados="filas afectadas= ";
+        String regAfectados= "filas afectadas= ";
         int contador=0;
 
         contador+=db.delete("cliente","dui='"+cliente.getDui()+"'",null);
@@ -569,8 +607,12 @@ public class ControlDBValoracionEstablecimientos {
         comp.put("monto",comprobante.getMonto());
         comp.put("vendedor",comprobante.getVendedor());
         comp.put("idTipoComprobante",comprobante.getIdTipoComprobante());
-        contador=db.insert("comprobante",null,comp);
-
+        try {
+            contador = db.insert("comprobante", null, comp);
+        }
+        catch(SQLException e){
+            regInsertados+="No existe ese tipo de comprobante";
+        }
         if (contador==-1||contador==0){
             regInsertados="Error al insertar registro, Registro Duplicado. Verificar inserción";
         }
@@ -590,8 +632,7 @@ public class ControlDBValoracionEstablecimientos {
 
         if (contador==-1||contador==0){
             regInsertados="Error al insertar registro, Registro Duplicado. Verificar inserción";
-        }
-        else {
+        } else {
             regInsertados=regInsertados+contador;
         }
         return regInsertados;
@@ -676,6 +717,156 @@ public class ControlDBValoracionEstablecimientos {
             return tipoComprobante;
         }else{
             return null;
+        }
+    }
+
+    /*metodos Leo -----------------------------------------------------------------*/
+    public TipoValoracion consultarTipoValoracion(String IdTipoValoracion){
+        String[] id = {IdTipoValoracion};
+
+        Cursor cursor = db.query("TipoValoracion", camposTipoValoracion, "IdTipoValoracion = ?", id, null, null, null);
+        if(cursor.moveToFirst()){
+            TipoValoracion tipoValoracion = new TipoValoracion();
+            tipoValoracion.setIdTipoValoracion(Integer.parseInt(cursor.getString(0)));
+            tipoValoracion.setTipoDeValoracion(cursor.getString(1));
+
+            return tipoValoracion;
+        }else{
+            return null;
+        }
+    }
+    public Valoracion consultarValoracion(int IdValoracion){
+
+        String[] id = {String.valueOf(IdValoracion)};
+        Cursor cursor = db.query("Valoracion", camposValoracion, "IdValoracion = ? ", id, null, null, null);
+        if(cursor.moveToFirst()){
+            Valoracion valoracion = new Valoracion();
+            valoracion.setIdValoracion(Integer.parseInt(cursor.getString(0)));
+            valoracion.setIdTipovaloracion(Integer.parseInt(cursor.getString(1)));
+            valoracion.setCalificacion(Integer.parseInt(cursor.getString(2)));
+            valoracion.setFechaValoracion(cursor.getString(3));
+            valoracion.setComentario(cursor.getString(4));
+            valoracion.setIdCliente(cursor.getString(5));
+            valoracion.setIdEstablecimiento(cursor.getString(6));
+
+            return valoracion;
+        }else{
+            return null;
+        }
+    }
+
+    public String insertar(Valoracion valoracion){
+
+        String regInsertados="Registro Insertado Nº= ";
+        long contador=0;
+        if(verificarIntegridad(valoracion,6))
+        {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("IdValoracion", valoracion.getIdValoracion());
+            contentValues.put("IdTipoValoracion", valoracion.getIdTipovaloracion());
+            contentValues.put("Calificacion", valoracion.getCalificacion());
+            contentValues.put("FechaValoracion", valoracion.getFechaValoracion());
+            contentValues.put("Comentario", valoracion.getComentario());
+            contentValues.put("IdCliente", valoracion.getIdCliente());
+            contentValues.put("IdEstablecimiento",valoracion.getIdEstablecimiento());
+
+            contador=db.insert("Valoracion", null, contentValues);
+        }
+        if(contador==-1 || contador==0)
+        {
+            regInsertados= "Error al Insertar el registro, Registro Duplicado. Verificar inserción";
+        }
+        else {
+            regInsertados=regInsertados+contador;
+        }
+        return regInsertados;
+    }
+    public String insertar(TipoValoracion tipoValoracion){
+
+        String regInsertados="Registro Insertado Nº= ";
+        long contador=0;
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("IdTipoValoracion", tipoValoracion.getIdTipoValoracion());
+        contentValues.put("TipoDeValoracion", tipoValoracion.getTipoDeValoracion());
+
+        contador=db.insert("TipoValoracion", null, contentValues);
+        if(contador==-1 || contador==0)
+        {
+            regInsertados= "Error al Insertar el registro, Registro Duplicado. Verificar inserción";
+        }
+        else {
+            regInsertados=regInsertados+contador;
+        }
+        return regInsertados;
+    }
+
+
+    public String eliminar(TipoValoracion tipoValoracion){
+
+        String regAfectados="filas afectadas= ";
+        String msj1 = "";
+       /* String msj2 = "";*/
+        int contador=0;
+        if (verificarIntegridad(tipoValoracion, 7)) {
+            Cursor aux1 = db.rawQuery("select count(*) from TipoValoracion", null);
+            aux1.moveToFirst();
+            int aux2 = aux1.getInt(0);
+            try{
+                db.execSQL("DELETE FROM TipoValoracion where IdTipoValoracion = " + tipoValoracion.getIdTipoValoracion());
+                Cursor aux3 = db.rawQuery("select count(*) from tipoValoracion",null);
+                aux3.moveToFirst();
+                int aux4 = aux3.getInt(0);
+                if(aux2 != aux4){
+                    contador = aux2 - aux4;
+                    regAfectados += contador;
+                }
+            }catch (SQLException e){
+               /* e.printStackTrace();*/
+                msj1 = "No se puede eliminar TipoValoracion tiene asociadas Valoraciones";
+                regAfectados += msj1;
+            }
+        }
+
+        return regAfectados;
+    }
+    public String eliminar(Valoracion valoracion){
+
+        String regAfectados="filas afectadas= ";
+        int contador=0;
+        String where="IdValoracion='"+valoracion.getIdValoracion() + "'";
+        /*where=where+" AND codmateria='"+municipio.getCodmateria()+"'";
+        where=where+" AND ciclo="+municipio.getCiclo();*/
+        contador+=db.delete("Valoracion", where, null);
+        regAfectados+=contador;
+        return regAfectados;
+    }
+    public String actualizar(Valoracion valoracion){
+
+        if(verificarIntegridad(valoracion, 8)){
+            String[] id = {String.valueOf(valoracion.getIdValoracion()), };
+            ContentValues cv = new ContentValues();
+            cv.put("IdTipoValoracion", valoracion.getIdTipovaloracion());
+            cv.put("Calificacion", valoracion.getCalificacion());
+            cv.put("FechaValoracion", valoracion.getFechaValoracion());
+            cv.put("Comentario", valoracion.getComentario());
+            cv.put("idCliente",valoracion.getIdCliente());
+            cv.put("idEstablecimiento",valoracion.getIdEstablecimiento());
+            db.update("Valoracion", cv, "IdValoracion = ? ", id);
+            return "Registro Actualizado Correctamente";
+        }else{
+            return "Registro no Existe";
+        }
+    }
+    public String actualizar(TipoValoracion tipoValoracion){
+        if(verificarIntegridad(tipoValoracion, 7)){
+            String[] id = {String.valueOf(tipoValoracion.getIdTipoValoracion())};
+            ContentValues cv = new ContentValues();
+            cv.put("TipoDeValoracion", tipoValoracion.getTipoDeValoracion());
+
+            db.update("TipoValoracion", cv, "IdTipoValoracion = ?", id);
+            return "Registro Actualizado Correctamente";
+        }else{
+            return "Registro con IdTipoValoracion " + tipoValoracion.getIdTipoValoracion() + " no existe";
         }
     }
 
@@ -765,6 +956,43 @@ public class ControlDBValoracionEstablecimientos {
                 return null;*/ /* por el momento da error*/
             }
 
+            case 6:{
+                //verificar que al insertar valoracion exista IdTipoValoracion del TipoValoracion
+                Valoracion valoracion = (Valoracion) dato;
+                String[] id1 = {String.valueOf(valoracion.getIdTipovaloracion())};
+                abrir();
+                Cursor cursor1 = db.query("TipoValoracion", null, "IdTipoValoracion = ?", id1, null, null, null);
+
+                if (cursor1.moveToFirst()) {/* otra opcion cursor ¡= null*/
+                    //Se encontraron datos
+                    return true;
+                }
+                return false;
+            }
+            case 7:{
+                TipoValoracion tipoValoracion2 = (TipoValoracion) dato;
+                String[] id = {String.valueOf(tipoValoracion2.getIdTipoValoracion())};
+                abrir();
+                Cursor c2 = db.query("TipoValoracion", null, "IdTipoValoracion = ?", id, null, null, null);
+                if (c2.moveToFirst()) {
+                    //Se encontro el Tipo
+                    return true;
+                }
+                return false;
+            }
+            case 8:{
+                //verificar que al modificar valoracion exista IdTipoValoracion
+                Valoracion valoracion = (Valoracion) dato;
+                String[] ids = {String.valueOf(valoracion.getIdTipovaloracion())};
+                abrir();
+                Cursor c = db.query("TipoValoracion", null, "IdTipoValoracion = ?", ids, null, null, null);
+                if (c.moveToFirst()) {
+                    //Se encontraron datos
+                    return true;
+                }
+                return false;
+            }
+
             default:
                 return false;
         }
@@ -792,6 +1020,39 @@ public class ControlDBValoracionEstablecimientos {
         }
         return lista;
 
+    }
+    public int buscarEstablec(String id) {
+        int cont=0;
+        Cursor c;
+        c = db.rawQuery("SELECT idEstablecimiento FROM Establecimiento where idEstablecimiento=? ",new String[]{id});
+        c.moveToFirst();
+        cont = c.getCount();
+        return cont;
+
+    }
+    public List listaNitEncargados(){
+        List<String> lista = new ArrayList<String>();
+        Cursor c;
+        c = db.rawQuery("SELECT nit FROM encargado ", null);
+        c.moveToFirst();
+        int cont = c.getCount();
+        for (int i = 0; i < cont; i++) {
+            lista.add(c.getString(0));
+            c.moveToNext();
+        }
+        return lista;
+    }
+    public List listaMunicipios(){
+        List<String> lista = new ArrayList<String>();
+        Cursor c;
+        c = db.rawQuery("SELECT idMunicipio FROM Municipio ", null);
+        c.moveToFirst();
+        int cont = c.getCount();
+        for (int i = 0; i < cont; i++) {
+            lista.add(c.getString(0));
+            c.moveToNext();
+        }
+        return lista;
     }
 
     public String ultimoRegistroE() {
@@ -832,10 +1093,10 @@ public class ControlDBValoracionEstablecimientos {
             llenarBaseUsuarios();/*al momento de llenar la base con los datos del usuario*/
 
         Cursor c2 = db.rawQuery("SELECT IdUsuario FROM Usuario where NombreUsuario=? AND Clave=?", new String[]{usuario,pass});
-        if (c2.moveToFirst()) {
-            //Se encontro usuario
+        if (c2.moveToFirst())
             return c2.getString(0);
-        }
+
+
         return "";
 
     }
@@ -946,7 +1207,7 @@ public class ControlDBValoracionEstablecimientos {
     public String llenarBDProyecto1() {
         Cursor c = db.rawQuery("SELECT idTipoEstablecimiento FROM TipoEstablecimiento",null);
         c.moveToFirst();
-        if (c.getCount()<1){
+        if (c.getCount()<1){//Error
             final int[] VDIdDepartamento = {1,2,3,4};
             final String[] VDNombreDepartamento = {"San Salvador", "San Miguel ", "Santa Ana", "La Union"};
             final String[] VDZona = {"Central", "Oriental", "Occidental", "Oriental"};
@@ -979,7 +1240,7 @@ public class ControlDBValoracionEstablecimientos {
             final String[] telefono={"78941657","789789","78987899"};
 
             String[] idTiestablec={"TipoEsta1","TipoEsta2","TipoEsta3"};
-            String[] tipoEstablec={"comedor","supermercado","bañeario"};
+            String[] tipoEstablec={"restaurante","supermercado","balneario"};
 
        /* String [] numeroEstablecimiento={"100","200","300"};
         String [] direccion={"cuarta calle poniente, casa2","barrio el calbario, casa 2","barrio santa fe, segunda avenida"};
@@ -1008,6 +1269,7 @@ public class ControlDBValoracionEstablecimientos {
         //Estas  son de Elias
         db.execSQL("DELETE FROM tipoComprobante");
         db.execSQL("DELETE FROM comprobante");
+
 
             abrir();
             db.execSQL("DELETE FROM Establecimiento");
@@ -1114,6 +1376,41 @@ public class ControlDBValoracionEstablecimientos {
             tipo_comprobante.setTipoComprobante(VTtipocom[i]);
             insertar(tipo_comprobante);
         }
+            // Inserciones Leo--------------------------------------------------------------------
+            final int[] VTIdTipoValoracion = {1,2,3,4,5,6};
+            final String[] VTTipoDeValoracion = {"Pesima","Muy Mala","Mala","Regular","Buena","Muy Buena","Exelente",};
+
+            final int[] VVIdValoracion = {1,2,3,4,5,6};
+            final int[] VVIdTipoValoracion = {6,5,4,3,2,1};
+            final int[] VVCalificacion = {11,22,33,44,55,66};
+            final String[] VVComentario = {"Comentario1", "Comentario2","Comentario3","Comentario4","Comentario5","Comentario6"};
+            final String[] VVdui={"0000000000","0000001010","0000002020","0000000000","0000001010","0000002020"};
+            final String[] VVidEstablec={"est1","est2","est3","est1","est2","est3"};
+
+            abrir();
+            db.execSQL("DELETE FROM Valoracion");
+            db.execSQL("DELETE FROM TipoValoracion");
+
+            TipoValoracion tipoValoracion = new TipoValoracion();
+            for (int i = 0; i < 6; i++) {
+                tipoValoracion.setIdTipoValoracion(VTIdTipoValoracion[i]);
+                tipoValoracion.setTipoDeValoracion(VTTipoDeValoracion[i]);
+
+                insertar(tipoValoracion);
+            }
+
+            Valoracion valoracion = new Valoracion();
+            for(int i=0;i<6;i++){
+                String fecha = valoracion.getFecha();
+                valoracion.setIdValoracion(VVIdValoracion[i]);
+                valoracion.setIdTipovaloracion(VVIdTipoValoracion[i]);
+                valoracion.setCalificacion(VVCalificacion[i]);
+                valoracion.setFechaValoracion(fecha);
+                valoracion.setComentario(VVComentario[i]);
+                valoracion.setIdCliente(VVdui[i]);
+                valoracion.setIdEstablecimiento(VVidEstablec[i]);
+                insertar(valoracion);
+            }
 
 
 

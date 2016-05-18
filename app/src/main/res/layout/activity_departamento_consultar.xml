@@ -14,6 +14,25 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="75sp"
+        android:background="#00BCD4">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/departamento"
+            android:paddingLeft="50sp"
+            android:textColor="#ffffff"
+            android:textSize="40sp"
+            android:paddingTop="10sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,24 +46,29 @@
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
         <Button
             android:id="@+id/botonConsultar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:text="@string/consultar"
-            android:onClick="consultarDepartamento"/>
+            android:onClick="consultarDepartamento"
+            style="@style/btStyle"/>
         <Button
             android:id="@+id/botonLimpiar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="@string/limpiar"
-            android:onClick="limpiarTexto"/>
+            android:onClick="limpiarTexto"
+            android:layout_marginStart="20dp"
+            style="@style/btStyle"/>
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/NombreDepartamento" />
+        android:text="@string/NombreDepartamento"
+        android:layout_marginTop="20dp"/>
     <EditText
         android:id="@+id/editNombreDepartamento"
         android:layout_width="fill_parent"
@@ -69,6 +93,7 @@
         android:focusableInTouchMode="false"
         android:cursorVisible="false"
         android:longClickable="false"/>
+    </LinearLayout>
    <!-- <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

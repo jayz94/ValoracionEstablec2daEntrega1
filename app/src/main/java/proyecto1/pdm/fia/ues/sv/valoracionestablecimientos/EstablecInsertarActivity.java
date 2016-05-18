@@ -19,8 +19,8 @@ public class EstablecInsertarActivity extends Activity {
     EditText nombreEstablec;
     EditText direccion;
     EditText telefono;
-    EditText encargadoNit;
-    EditText idMun;
+    Spinner encargadoNit;
+    Spinner idMun;
     Spinner idTipoEstablec;
     TextView ultimoEstablec;
 
@@ -33,17 +33,30 @@ public class EstablecInsertarActivity extends Activity {
         nombreEstablec = (EditText) findViewById(R.id.editNombreEstablec);
         direccion = (EditText) findViewById(R.id.editDireccion);
         telefono = (EditText) findViewById(R.id.editTelefono);
-        encargadoNit = (EditText) findViewById(R.id.editEncargadoNit);
-        idMun = (EditText) findViewById(R.id.editIdMunicipioE);
+        encargadoNit = (Spinner) findViewById(R.id.editEncargadoNit);
+        idMun = (Spinner) findViewById(R.id.editIdMunicipioE);
         idTipoEstablec = (Spinner) findViewById(R.id.spinnerTipoEstablec);
         helper.abrir();
-       /*Spinner*/
+       /*Spinner de tipo estblecimiento*/
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,helper.listaIdTiEstablec());
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         idTipoEstablec.setAdapter(adaptador);
         /*Spinner*/
+
+        /*Spinnerde nit encargado*/
+        ArrayAdapter<String> adaptadorNE = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,helper.listaNitEncargados());
+        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        encargadoNit.setAdapter(adaptadorNE);
+        /*Spinner*/
+
+        /*Spinnerde idMunicipio*/
+        ArrayAdapter<String> adaptadorM = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,helper.listaMunicipios());
+        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        idMun.setAdapter(adaptadorM);
+        /*Spinner*/
         ultimoEstablec = (TextView) findViewById(R.id.viewUltimoEstablec);
         ultimoEstablec.setText("Ultimo ID " + helper.ultimoRegistroE());
+
     }
 
     public void insertarEstablec(View v) {
@@ -53,13 +66,13 @@ public class EstablecInsertarActivity extends Activity {
         establec.setDireccion(direccion.getText().toString());
         establec.setTelefono(telefono.getText().toString());/*String selec=spinner1.getSelectedItem().toString();*/
         //erificarIntegridad(String encargadoNit, String idTipoEstablec, int idMun)
-        String idEs=helper.verificarIntegridad(encargadoNit.getText().toString(),idTipoEstablec.getSelectedItem().toString(),Integer.parseInt(idMun.getText().toString()));
+        String idEs=null;//=helper.verificarIntegridad(encargadoNit.getSelectedItem().toString(),idTipoEstablec.getSelectedItem().toString(),Integer.parseInt(idMun.getSelectedItem().toString()));
         if(idEs==null) {
-            establec.setEncargadoNit(encargadoNit.getText().toString());
-            if (idMun.getText().toString().equals(""))
+            establec.setEncargadoNit(encargadoNit.getSelectedItem().toString());
+            if (idMun.getSelectedItem().toString().equals(""))
                 Toast.makeText(this, "Error, Ingrese Id Municipio", Toast.LENGTH_SHORT).show();
             else {
-                int idMuni = Integer.parseInt(idMun.getText().toString());
+                int idMuni = Integer.parseInt(idMun.getSelectedItem().toString());
                 establec.setIdMunicipio(idMuni);
                establec.setIdTipoEstablec(idTipoEstablec.getSelectedItem().toString());
                 helper.cerrar();
@@ -78,8 +91,8 @@ public class EstablecInsertarActivity extends Activity {
         nombreEstablec.setText("");
         direccion.setText("");
         telefono.setText("");
-        encargadoNit.setText("");
-        idMun.setText("");
+       // encargadoNit.setText("");
+       // idMun.setText("0");
         //idTipoEstablec.setText("");
     }
 }

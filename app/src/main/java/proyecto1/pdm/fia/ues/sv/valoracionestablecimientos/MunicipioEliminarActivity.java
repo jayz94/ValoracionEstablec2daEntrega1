@@ -21,6 +21,7 @@ public class MunicipioEliminarActivity extends Activity {
         editIdMunicipio=(EditText)findViewById(R.id.editIdMunicipio);
         /*editCodmateria=(EditText)findViewById(R.id.editCodmateria);
         editCiclo=(EditText)findViewById(R.id.editCiclo);*/
+        editIdMunicipio.setText("0");
     }
     public void eliminarMunicipio(View v){
         String regEliminadas;

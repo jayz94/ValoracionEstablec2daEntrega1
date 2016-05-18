@@ -24,6 +24,8 @@ public class MunicipioActualizarActivity extends Activity {
         editIdMunicipio = (EditText) findViewById(R.id.editIdMunicipio);
         editIdDepartamento = (EditText) findViewById(R.id.editIdDepartamento);
         editNombreMunicipio = (EditText) findViewById(R.id.editNombreMunicipio);
+        editIdDepartamento.setText("0");
+        editIdMunicipio.setText("0");
     }
     public void actualizarMunicipio(View v) {
         Municipio municipio = new Municipio();
@@ -37,8 +39,8 @@ public class MunicipioActualizarActivity extends Activity {
         Toast.makeText(this, estado, Toast.LENGTH_SHORT).show();
     }
     public void limpiarTexto(View v) {
-        editIdMunicipio.setText("");
-        editIdDepartamento.setText("");
+        editIdMunicipio.setText("0");
+        editIdDepartamento.setText("0");
         editNombreMunicipio.setText("");
     }
 }

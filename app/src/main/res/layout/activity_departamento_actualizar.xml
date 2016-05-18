@@ -10,31 +10,51 @@
     tools:context="proyecto1.pdm.fia.ues.sv.valoracionestablecimientos.DepartamentoActualizarActivity">
 
 </RelativeLayout> -->
+
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dip"
     android:stretchColumns="1" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="75sp"
+        android:background="#00BCD4"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/departamento"
+            android:paddingLeft="80sp"
+            android:textColor="#ffffff"
+            android:textSize="35sp" />
+    </LinearLayout>
+
     <TableRow>
-        <TextView android:text="@string/IdDepartamento" />
+        <TextView android:text="@string/IdDepartamento"/>
         <EditText
             android:id="@+id/editIdDepartamento"
             android:inputType="number"
-            android:maxLength="7" /><!--para carnet es 7 pero para departamento puede cambiar -->
+            android:maxLength="7"/><!--para carnet es 7 pero para departamento puede cambiar -->
     </TableRow>
     <TableRow>
-        <TextView android:text="@string/NombreDepartamento" />
+        <TextView android:text="@string/NombreDepartamento"
+            android:layout_marginTop="30dp"/>
         <EditText
             android:id="@+id/editNombreDepartamento"
             android:inputType="text"
-            android:maxLength="30" />
+            android:maxLength="30"
+            android:layout_marginTop="30dp"/>
     </TableRow>
     <TableRow>
-        <TextView android:text="@string/Zona" />
+        <TextView android:text="@string/Zona"
+            android:layout_marginTop="30dp"/>
         <EditText
             android:id="@+id/editZona"
             android:inputType="text"
-            android:maxLength="30" />
+            android:maxLength="30"
+            android:layout_marginTop="30dp"/>
     </TableRow>
     <!--<TableRow>
         <TextView android:text="@string/sexo" />
@@ -46,11 +66,15 @@
     <TableRow>
         <Button
             android:onClick="actualizarDepartamento"
-            android:text="@string/actualizar" />
-    </TableRow>
-    <TableRow>
+            android:text="@string/actualizar"
+            android:layout_marginTop="20dp"
+            style="@style/btStyle"/>
         <Button
             android:onClick="limpiarTexto"
-            android:text="@string/limpiar" />
+            android:text="@string/limpiar"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="70dp"
+            style="@style/btStyle"/>
     </TableRow>
 </TableLayout>

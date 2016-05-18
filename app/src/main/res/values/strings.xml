@@ -43,6 +43,7 @@
 
 
     <string name="cliente_titulo">Cliente</string>
+    <string name="comprobante">Comprobante</string>
 
     <string name="dui">Dui</string>
     <string name="nombre">Nombre</string>
@@ -61,7 +62,7 @@
     <string name="nit">Nit</string>
 
 
-    <string name="identificador">Identificador</string>
+    <string name="identificador">Id Establecimiento</string>
     <string name="iestablecimiento">Insertar Establecimiento</string>
     <string name="cestablecimiento">Consultar Establecimiento</string>
     <string name="aestablecimiento">Actualizar Establecimiento</string>
@@ -86,4 +87,28 @@
     <string name="vendedor">Vendedor</string>
     <string name="id_tipo_comprobante">ID del tipo de Comprobante</string>
     <string name="tipo_comprobante">Tipo de Comprobante</string>
+    <string name="departamento">Departamento</string>
+    <string name="municipio">Municipio</string>
+    <string name="tipoEstablec">Tipo Establecimiento</string>
+
+
+
+    <string name="insertar_valoracion">Insertar Valoracion</string>
+    <string name="eliminar_valoracion">Eliminar Valoracion</string>
+    <string name="consultar_valoracion">Consultar Valoracion</string>
+    <string name="actualizar_valoracion">Actualizar Valoracion</string>
+
+    <string name="IdValoracion">IdValoracion</string>
+    <string name="IdTipoValoracion">IdTipoValoracion</string>
+    <string name="Calificacion">Calificacion</string>
+    <string name="FechaValoracion">Fecha de Valoracion</string>
+    <string name="Comentario">Comentario</string>
+
+    <string name="insertar_tipo_valoracion">Insertar Tipo Valoracion</string>
+    <string name="eliminar_tipo_valoracion">Eliminar Tipo Valoracion</string>
+    <string name="consultar_tipo_valoracion">Consultar Tipo Valoracion</string>
+    <string name="actualizar_tipo_valoracion">Actualizar Tipo Valoracion</string>
+
+    <string name="TipoDeValor">Tipo de Valoracion</string>
+    <string name="TipoDeValoracion">TipoDeValoracion</string>
 </resources>

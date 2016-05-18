@@ -7,11 +7,21 @@
     tools:context="proyecto1.pdm.fia.ues.sv.valoracionestablecimientos.EstablecEliminarActivity">
 
 
-    <TextView
-        android:text="@string/eTiestablec"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:layout_gravity="center_horizontal" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="90sp"
+        android:background="#00BCD4"
+        android:id="@+id/textView">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tipoEstablec"
+            android:paddingLeft="10sp"
+            android:textColor="#ffffff"
+            android:textSize="35sp"
+            android:paddingTop="10sp" />
+    </LinearLayout>
     <TextView
         android:text="@string/identificador"
         android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -30,5 +40,8 @@
         android:layout_height="wrap_content"
         android:text="@string/eliminar"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:onClick="eliminar" />
+        android:onClick="eliminar"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        style="@style/btStyle"/>
 </TableLayout>

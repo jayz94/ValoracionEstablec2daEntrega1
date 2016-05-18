@@ -23,6 +23,7 @@ public class DepartamentoConsultarActivity extends Activity {
         editIdDepartamento = (EditText) findViewById(R.id.editIdDepartamento);
         editNombreDepartamento = (EditText) findViewById(R.id.editNombreDepartamento);
         editZona = (EditText) findViewById(R.id.editZona);
+        editIdDepartamento.setText("0");
     }
     public void consultarDepartamento(View v) {
         helper.abrir();

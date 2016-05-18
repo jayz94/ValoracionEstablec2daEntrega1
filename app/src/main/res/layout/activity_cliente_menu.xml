@@ -144,7 +144,7 @@
             android:layout_height="wrap_content"
             android:text="@string/limpiar"
             style="@style/btStyle"
-            android:layout_marginLeft="10sp"
+            android:layout_marginLeft="20sp"
             android:onClick="limpiar"/>
     </LinearLayout>
 

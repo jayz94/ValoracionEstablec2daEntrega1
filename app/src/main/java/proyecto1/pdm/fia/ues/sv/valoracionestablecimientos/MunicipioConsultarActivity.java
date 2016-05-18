@@ -24,6 +24,7 @@ public class MunicipioConsultarActivity extends Activity {
         editIdMunicipio = (EditText) findViewById(R.id.editIdMunicipio);
         editIdDepartamento = (EditText) findViewById(R.id.editIdDepartamento);
         editNombreMunicipio = (EditText) findViewById(R.id.editNombreMunicipio);
+        editIdMunicipio.setText("0");
     }
     public void consultarMunicipio(View v) {
         helper.abrir();
@@ -37,8 +38,8 @@ public class MunicipioConsultarActivity extends Activity {
         }
     }
     public void limpiarTexto(View v) {
-        editIdMunicipio.setText("");
-        editIdDepartamento.setText("");
+        editIdMunicipio.setText("0");
+        editIdDepartamento.setText("0");
         editNombreMunicipio.setText("");
     }
 }

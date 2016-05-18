@@ -23,6 +23,7 @@ public class DepartamentoInsertarActivity extends Activity {
         editIdDepartamento = (EditText) findViewById(R.id.editIdDepartamento);
         editNombreDepartamento = (EditText) findViewById(R.id.editNombreDepartamento);
         editZona = (EditText) findViewById(R.id.editZona);
+        editIdDepartamento.setText("0");
     }
     public void insertarDepartamento(View v) {
         int IdDepartamento=Integer.parseInt(editIdDepartamento.getText().toString()); /*tuve que hacer un parse xq IdDepartamento es entero*/
